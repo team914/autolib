@@ -47,7 +47,7 @@ We suggest that you use a robot similair to the one described in the 5225A Pilon
 
 *Note: Before you begin to use AutoLib we suggest that you [read up](https://github.com/team914/autolib/wiki/Basic-Autonomous-Tiers-Theory) on the algorithms that we use.*
 
-### Implimentation
+### Code
 ```cpp
 //This will construct the PathGenerator class
 PathGenerator pathGenerator(
