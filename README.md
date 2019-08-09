@@ -21,7 +21,27 @@ We know nobody reads through the long and boring documentation in the ReadMe any
 
 *Note: The docs are currently in progress, so if you can't find something please contact us!
 
-## Examples
+## Contributing
+
+We love contributions from the community! Contributions are
+accepted using GitHub pull requests; for more information, see 
+[GitHub documentation - Creating a pull request](https://help.github.com/articles/creating-a-pull-request/). In addition, dealing with git branches and forks can be tricky if you don't already know how to use them; see [Editing and Creating a new branch with git and manage branches](https://github.com/acetousk/autolib/wiki/Editing-Create-a-new-branch-with-git-and-manage-branches)
+
+For a good pull request, we ask you provide the following:
+
+1. Include a clear description of your pull request in the description with the basic "what" and "why"s for the request.
+2. If the pull request is a new feature, please include appropriate documentation in the wiki.
+3. Keep a consistent coding style.
+
+## Implimentation
+
+### Dependancies
+ - OkapiLib's branch [feature/odometry](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry)
+
+### Robot
+We suggest that you use a robot similair to the one described in the 5225A Pilons Position Tracking [Document](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry), however we support basically any configuration of a Skid Steer or X Drive.
+
+*Note: Before you begin to use AutoLib we suggest that you [read up]() on the algorithms that we use.*
 
 ### Implimentation
 ```cpp
@@ -60,18 +80,6 @@ PurePursuit purePursuit(
 purePursuit.getGoalCurvature( 0_ft, 0_in, 0_rad );
 
 ```
-## Contributing
-
-We love contributions from the community! Contributions are
-accepted using GitHub pull requests; for more information, see 
-[GitHub documentation - Creating a pull request](https://help.github.com/articles/creating-a-pull-request/). In addition, dealing with git branches and forks can be tricky if you don't already know how to use them; see [Editing and Creating a new branch with git and manage branches](https://github.com/acetousk/autolib/wiki/Editing-Create-a-new-branch-with-git-and-manage-branches)
-
-For a good pull request, we ask you provide the following:
-
-1. Include a clear description of your pull request in the description with the basic "what" and "why"s for the request.
-2. If the pull request is a new feature, please include appropriate documentation in the wiki.
-3. Keep a consistent coding style.
-
 ## Contact
 
 To contact us:
