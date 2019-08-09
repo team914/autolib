@@ -4,7 +4,7 @@
 
 AutoLib is a Pros C++ Library based off of OkapiLib for Advanced Vex Autonomous Programming. 
  
-*Notice: AutoLib v1.0.0 is coming out soon! And we would love your contributions! Find us in the contact section below.* 
+*Note: AutoLib v1.0.0 is coming out soon! And we would love your contributions! Find us in the contact section below.* 
 
 ## Why AutoLib?
 
@@ -20,7 +20,7 @@ We know nobody reads through the long and boring documentation in the ReadMe any
 
 [https://github.com/team914/autolib/wiki](https://github.com/team914/autolib/wiki)
 
-*Note: The docs are currently in progress, so if you can't find something please contact us!
+*Note: The docs are currently in progress, so if you can't find something please contact us!*
 
 ## Contributing
 AutoLib isn't perfect; and it never will be, but we can get it pretty close. However, without your contributions and community involvment it may never get to it's full potential. So help make AutoLib by submitting a PR.
@@ -40,7 +40,7 @@ For a good pull request, we ask you provide the following:
 ### Dependancies
  - OkapiLib's branch [feature/odometry](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry)
 
- *Note: Make sure that you install okapi's **feature/odomtry** branch rather than some other branch. 
+ *Note: Make sure that you install okapi's **feature/odomtry** branch rather than some other branch.*
 
 ### Robot
 We suggest that you use a robot similair to the one described in the 5225A Pilons Position Tracking [Document](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry), however we support basically any configuration of a Skid Steer or X Drive.
