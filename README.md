@@ -4,15 +4,16 @@
 
 AutoLib is a Pros C++ Library based off of OkapiLib for Advanced Vex Autonomous Programming. 
  
-*Notice: AutoLib Version 1 beta is coming out soon! And we would love your contributions! Find us in the contact section below.* 
+*Notice: AutoLib v1.0.0 is coming out soon! And we would love your contributions! Find us in the contact section below.* 
 
 ## Why AutoLib?
 
 ### Features:
- - PathGenerator: A simplified easy class for generating a path.
- - PurePursuit: A robust path following algorithm for controlling your robot's chassis.
+ - PathGenerator: A simplified easy class for generating a path
+ - PurePursuit: A robust path following algorithm for controlling your robot's chassis
+ - Versatile: You can use your own custom library or you can use OkapiLib to handle the motor control and odometry
  - Documentation: Great Documentation for Expert to Newbie Vex Team Programmers
- - Open Source: You can contribute to this project.
+ - Open Source: You can and should contribute to this project
  
 ## Docs
 We know nobody reads through the long and boring documentation in the ReadMe anyway, so head over to the documentation website:
@@ -22,8 +23,9 @@ We know nobody reads through the long and boring documentation in the ReadMe any
 *Note: The docs are currently in progress, so if you can't find something please contact us!
 
 ## Contributing
+AutoLib isn't perfect; and it never will be, but we can get it pretty close. However, without your contributions and community involvment it may never get to it's full potential. So help make AutoLib by submitting a PR.
 
-We love contributions from the community! Contributions are
+Contributions are
 accepted using GitHub pull requests; for more information, see 
 [GitHub documentation - Creating a pull request](https://help.github.com/articles/creating-a-pull-request/). In addition, dealing with git branches and forks can be tricky if you don't already know how to use them; see [Editing and Creating a new branch with git and manage branches](https://github.com/acetousk/autolib/wiki/Editing-Create-a-new-branch-with-git-and-manage-branches)
 
@@ -38,10 +40,12 @@ For a good pull request, we ask you provide the following:
 ### Dependancies
  - OkapiLib's branch [feature/odometry](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry)
 
+ *Note: Make sure that you install okapi's **feature/odomtry** branch rather than some other branch. 
+
 ### Robot
 We suggest that you use a robot similair to the one described in the 5225A Pilons Position Tracking [Document](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry), however we support basically any configuration of a Skid Steer or X Drive.
 
-*Note: Before you begin to use AutoLib we suggest that you [read up]() on the algorithms that we use.*
+*Note: Before you begin to use AutoLib we suggest that you [read up](https://github.com/team914/autolib/wiki/Basic-Autonomous-Tiers-Theory) on the algorithms that we use.*
 
 ### Implimentation
 ```cpp
