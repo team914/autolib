@@ -4,7 +4,7 @@
 
 AutoLib is a Pros C++ Library based off of OkapiLib for Advanced Vex Autonomous Programming. 
  
-*Notice: AutoLib Version 1 beta is coming out soon! And we would love your contributions! To find us, email acetousk@gmail.com or ping on the [Unofficial Vex Discord](https://discord.gg/) @potatehoes#7782*
+*Notice: AutoLib Version 1 beta is coming out soon! And we would love your contributions! Find us in the contact section below.* 
 
 ## Why AutoLib?
 
@@ -18,6 +18,8 @@ AutoLib is a Pros C++ Library based off of OkapiLib for Advanced Vex Autonomous 
 We know nobody reads through the long and boring documentation in the ReadMe anyway, so head over to the documentation website:
 
 [https://github.com/team914/autolib/wiki](https://github.com/team914/autolib/wiki)
+
+*Note: The docs are currently in progress, so if you can't find something please contact us!
 
 ## Examples
 
@@ -70,6 +72,13 @@ For a good pull request, we ask you provide the following:
 2. If the pull request is a new feature, please include appropriate documentation in the wiki.
 3. Keep a consistent coding style.
 
+## Contact
+
+To contact us:
+ - Ping @potatehoes#7782 on the [Unofficial Vex Discord Server](https://discord.gg/EpPejXk)
+ - Email acetousk@gmail.com
+ - PM us on the [Vex Forum](https://www.vexforum.com/u/potatehoes914m)
+ 
 ## License
 
 AutoLib is licensed under the MIT license.
