@@ -32,6 +32,7 @@ static constexpr double pi2 = 1.5707963267948966;
 static constexpr double gravity = 9.80665;
 static constexpr auto OKAPI_PROS_ERR = INT32_MAX;
 static constexpr auto OKAPI_PROS_ERR_F = INFINITY;
+static constexpr double v5MotorMaxVoltage = 12000;
 
 static constexpr std::int8_t motorUpdateRate = 10;
 static constexpr std::int8_t adiUpdateRate = 10;
@@ -74,18 +75,6 @@ constexpr double cutRange(const double value, const double min, const double max
 }
 
 /**
- * Range from the number. Returns the value if it's within the min and max values.
- *
- * @param value number to bound
- * @param min lower bound of range
- * @param max upper bound of range
- * @return the remapped value
- */
-constexpr double range(const double value, const double min, const double max) {
-  return min < value < max ? value : 0;
-}
-
-/**
  * Deadbands a range of the number. Returns the input value, or 0 if it is in the range [min, max].
  *
  * @param value number to deadband
@@ -123,13 +112,6 @@ template <typename E> constexpr auto toUnderlyingType(const E e) noexcept {
 }
 
 /**
- * Converts number to the sign( -1 or 1 ) of given number. It will return 0 if 0 is the field. 
- */
-template <typename T> double sgn( T val ){
-  return ( T(0) < val ) - ( val < T(0) );
-}
-
-/**
  * Converts a bool to a sign. True corresponds to 1 and false corresponds to -1.
  */
 constexpr auto boolToSign(const bool b) noexcept {
@@ -161,7 +143,31 @@ constexpr std::int32_t gearsetToTPR(const AbstractMotor::gearset igearset) noexc
     return imev5GreenTPR;
   case AbstractMotor::gearset::blue:
   case AbstractMotor::gearset::invalid:
+  default:
     return imev5BlueTPR;
+  }
+}
+
+/**
+ * Maps ADI port numbers/chars to numbers:
+ * ```
+ * when (port) {
+ *   in ['a', 'h'] -> [1, 8]
+ *   in ['A', 'H'] -> [1, 8]
+ *   else -> [1, 8]
+ * }
+ * ```
+ *
+ * @param port The ADI port number or char.
+ * @return An equivalent ADI port number.
+ */
+constexpr std::int8_t transformADIPort(const std::int8_t port) {
+  if (port >= 'a' && port <= 'h') {
+    return port - ('a' - 1);
+  } else if (port >= 'A' && port <= 'H') {
+    return port - ('A' - 1);
+  } else {
+    return port;
   }
 }
 } // namespace okapi
