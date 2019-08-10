@@ -93,4 +93,4 @@ To contact us:
  
 ## License
 
-AutoLib is licensed under the MIT license.
+AutoLib is licensed under the Mozilla Public License 2.0.
