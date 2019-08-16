@@ -27,6 +27,12 @@ struct Curvature{
     double distance;
 };
 
+struct Pose{
+    okapi::QLength x;
+    okapi::QLength y;
+    okapi::QAngle yaw;
+};
+
 //These are only meant for internal uses. Do not use these unless you are an expert.
 struct InternalPoint{
     InternalPoint( double ix, double iy, int ipos = -1 ) : x(ix), y(iy), pos(ipos) {}

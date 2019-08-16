@@ -12,18 +12,18 @@ BINDIR=$(ROOT)/bin
 SRCDIR=$(ROOT)/src
 INCDIR=$(ROOT)/include
 
-WARNFLAGS+=
+WARNFLAGS+=-Wno-psabi
 EXTRA_CFLAGS=
 EXTRA_CXXFLAGS=
 
 # Set to 1 to enable hot/cold linking
-USE_PACKAGE:=1
+USE_PACKAGE:=0
 
 # Set this to 1 to add additional rules to compile your project as a PROS library template
-IS_LIBRARY:=0
+IS_LIBRARY:=1
 # TODO: CHANGE THIS!
 LIBNAME:=autolib
-VERSION:=0.9.0
+VERSION:=0.9.1
 # EXCLUDE_SRC_FROM_LIB= $(SRCDIR)/unpublishedfile.c
 # this line excludes opcontrol.c and similar files
 EXCLUDE_SRC_FROM_LIB+=$(foreach file, $(SRCDIR)/opcontrol $(SRCDIR)/initialize $(SRCDIR)/autonomous,$(foreach cext,$(CEXTS),$(file).$(cext)) $(foreach cxxext,$(CXXEXTS),$(file).$(cxxext)))
