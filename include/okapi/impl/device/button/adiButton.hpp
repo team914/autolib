@@ -16,6 +16,7 @@ class ADIButton : public ButtonBase {
   ADIButton(std::uint8_t iport, bool iinverted = false);
 
   protected:
+  pros::ADIButton btn;
   std::uint8_t port;
 
   virtual bool currentlyPressed() override;

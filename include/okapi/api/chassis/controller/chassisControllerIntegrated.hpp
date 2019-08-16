@@ -13,14 +13,12 @@
 #include "okapi/api/util/timeUtil.hpp"
 
 namespace okapi {
-class ChassisControllerIntegrated : public ChassisController {
+class ChassisControllerIntegrated : public virtual ChassisController {
   public:
   /**
-   * ChassisController using the V5 motor's integrated control. Puts the motors into encoder count
-   * units. Throws a std::invalid_argument exception if the gear ratio is zero. The initial model's
-   * max velocity will be propagated to the controllers.
+   * ChassisController using the V5 motor's integrated control. Puts the motors into degree units.
+   * Throws a std::invalid_argument exception if the gear ratio is zero.
    *
-   * @param itimeUtil The TimeUtil.
    * @param imodelArgs ChassisModelArgs
    * @param ileftControllerArgs left side controller params
    * @param irightControllerArgs right side controller params
@@ -30,12 +28,12 @@ class ChassisControllerIntegrated : public ChassisController {
    */
   ChassisControllerIntegrated(
     const TimeUtil &itimeUtil,
-    std::shared_ptr<ChassisModel> imodel,
+    const std::shared_ptr<ChassisModel> &imodel,
     std::unique_ptr<AsyncPosIntegratedController> ileftController,
     std::unique_ptr<AsyncPosIntegratedController> irightController,
-    const AbstractMotor::GearsetRatioPair &igearset = AbstractMotor::gearset::green,
+    AbstractMotor::GearsetRatioPair igearset = AbstractMotor::gearset::green,
     const ChassisScales &iscales = ChassisScales({1, 1}, imev5GreenTPR),
-    std::shared_ptr<Logger> ilogger = Logger::getDefaultLogger());
+    const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>());
 
   /**
    * Drives the robot straight for a distance (using closed-loop control).
@@ -94,21 +92,21 @@ class ChassisControllerIntegrated : public ChassisController {
   void turnAngleAsync(double idegTarget) override;
 
   /**
-   * Sets whether turns should be mirrored.
-   *
-   * @param ishouldMirror whether turns should be mirrored
-   */
-  void setTurnsMirrored(bool ishouldMirror) override;
-
-  /**
    * Delays until the currently executing movement completes.
    */
   void waitUntilSettled() override;
 
   /**
-   * Interrupts the current movement to stop the robot.
+   * Stop the robot (set all the motors to 0).
    */
   void stop() override;
+
+  /**
+   * Sets a new maximum velocity in RPM [0-600].
+   *
+   * @param imaxVelocity the new maximum velocity
+   */
+  void setMaxVelocity(double imaxVelocity) override;
 
   /**
    * Get the ChassisScales.
@@ -120,34 +118,8 @@ class ChassisControllerIntegrated : public ChassisController {
    */
   AbstractMotor::GearsetRatioPair getGearsetRatioPair() const override;
 
-  /**
-   * @return The internal ChassisModel.
-   */
-  std::shared_ptr<ChassisModel> getModel() override;
-
-  /**
-   * @return The internal ChassisModel.
-   */
-  ChassisModel &model() override;
-
-  /**
-   * Sets a new maximum velocity in RPM [0-600].
-   *
-   * @param imaxVelocity the new maximum velocity
-   */
-  virtual void setMaxVelocity(double imaxVelocity);
-
-  /**
-   * Returns the maximum velocity in RPM [0-600].
-   *
-   * @return The maximum velocity in RPM [0-600].
-   */
-  virtual double getMaxVelocity() const;
-
   protected:
   std::shared_ptr<Logger> logger;
-  bool normalTurns{true};
-  std::shared_ptr<ChassisModel> chassisModel;
   TimeUtil timeUtil;
   std::unique_ptr<AsyncPosIntegratedController> leftController;
   std::unique_ptr<AsyncPosIntegratedController> rightController;

@@ -59,6 +59,6 @@ class ADIGyro : public ContinuousRotarySensor {
   double controllerGet() override;
 
   protected:
-  pros::c::adi_gyro_t gyro;
+  pros::ADIGyro gyro;
 };
 } // namespace okapi

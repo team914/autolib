@@ -38,6 +38,6 @@ class ADIEncoder : public ContinuousRotarySensor {
   virtual double controllerGet() override;
 
   protected:
-  pros::c::adi_encoder_t enc;
+  pros::ADIEncoder enc;
 };
 } // namespace okapi

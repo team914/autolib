@@ -33,6 +33,6 @@ class Potentiometer : public RotarySensor {
   virtual double controllerGet() override;
 
   protected:
-  std::uint8_t port;
+  pros::ADIPotentiometer pot;
 };
 } // namespace okapi

@@ -34,7 +34,7 @@ class AsyncVelIntegratedController : public AsyncVelocityController<double, doub
                                const AbstractMotor::GearsetRatioPair &ipair,
                                std::int32_t imaxVelocity,
                                const TimeUtil &itimeUtil,
-                               const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger());
+                               const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>());
 
   /**
    * Sets the target for the controller.

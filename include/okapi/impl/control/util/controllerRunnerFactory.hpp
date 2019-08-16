@@ -20,7 +20,7 @@ template <typename Input, typename Output> class ControllerRunnerFactory {
    * @return
    */
   static ControllerRunner<Input, Output>
-  create(const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger()) {
+  create(const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>()) {
     return ControllerRunner<Input, Output>(TimeUtilFactory::create(), ilogger);
   }
 };

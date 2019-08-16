@@ -44,7 +44,7 @@ class ADIUltrasonic : public ControllerInput<double> {
   virtual double controllerGet() override;
 
   protected:
-  pros::c::adi_ultrasonic_t ultra;
+  pros::ADIUltrasonic ultra;
   std::unique_ptr<Filter> filter;
 };
 } // namespace okapi

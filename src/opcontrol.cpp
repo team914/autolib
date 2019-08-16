@@ -1,6 +1,6 @@
 #include "main.h"
 #include "okapi/api.hpp"
-#include "autolib/main.hpp"
+#include "autolib/api.hpp"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -34,7 +34,32 @@ void opcontrol() {
 
 	purePursuit.getGoalCurvature( 0_ft, 0_in, 0_rad );
 
-	while (true) {
-		
+	Pose pose{0_ft, 0_ft, 90_deg};
+	Pose startPose{9_ft, 9_ft, 180_deg};
+	Display debug(lv_scr_act(), LV_COLOR_BLACK, startPose);
+
+	while(true){
+		for(int i = 0; i<=3; i++){
+			printf("i = %d\n", i);
+			switch( i ){
+				case 0:
+					pose = Pose{ 3_ft, 9_ft, 270_deg };
+					debug.changePose( pose );
+				break;
+				case 1:
+					pose = Pose{ 3_ft, 3_ft, 0_deg };
+					debug.changePose( pose );
+				break;
+				case 2:
+					pose = Pose{ 9_ft, 3_ft, 90_deg };
+					debug.changePose( pose );
+				break;
+				case 3:
+					debug.changePose( startPose );
+				break;
+
+			}
+			pros::delay(1000);
+		}
 	}
 }

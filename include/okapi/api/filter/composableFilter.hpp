@@ -20,30 +20,39 @@ class ComposableFilter : public Filter {
    * A composable filter is a filter that consists of other filters. The input signal is passed
    * through each filter in sequence. The final output of this filter is the output of the last
    * filter.
+   */
+  ComposableFilter();
+
+  /**
+   * A composable filter is a filter that consists of other filters. The input signal is passed
+   * through each filter in sequence. The final output of this filter is the output of the last
+   * filter.
    *
-   * @param ilist The filters to use in sequence.
+   * @param ilist the filters to use in sequence
    */
   ComposableFilter(const std::initializer_list<std::shared_ptr<Filter>> &ilist);
 
   /**
-   * Filters a value.
+   * Filters a value, like a sensor reading.
    *
-   * @param ireading A new measurement.
-   * @return The filtered result.
+   * @param ireading new measurement
+   * @return filtered result
    */
   double filter(double ireading) override;
 
   /**
-   * @return The previous output from filter.
+   * Returns the previous output from filter.
+   *
+   * @return the previous output from filter
    */
   double getOutput() const override;
 
   /**
    * Adds a filter to the end of the sequence.
    *
-   * @param ifilter The filter to add.
+   * @param ifilter the filter to add
    */
-  virtual void addFilter(std::shared_ptr<Filter> ifilter);
+  virtual void addFilter(const std::shared_ptr<Filter> &ifilter);
 
   protected:
   std::vector<std::shared_ptr<Filter>> filters;
