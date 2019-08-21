@@ -91,6 +91,10 @@ To contact us:
  - Email acetousk@gmail.com
  - PM us on the [Vex Forum](https://www.vexforum.com/u/potatehoes914m)
  
+## Mailing List
+
+If you would like to join the mailing list, please email acetousk@gmail.com that you would like to do so.
+ 
 ## License
 
 AutoLib is licensed under the Mozilla Public License 2.0.
