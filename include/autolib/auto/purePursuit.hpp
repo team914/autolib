@@ -45,6 +45,7 @@ class PurePursuit {
 
     protected:
     const std::vector<PosePath> paths;
+    PosePath &path;
     PosePath possiblePoses;
     PosePath nearestPoses;
     PosePath currentPose;

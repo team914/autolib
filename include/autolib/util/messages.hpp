@@ -39,9 +39,23 @@ struct Pose{
 
 //These are only meant for internal uses. Do not use these unless you are an expert.
 struct InternalPoint{
-    InternalPoint( double ix, double iy) : x(ix), y(iy) {}
+    InternalPoint( const double &ix, const double &iy) : x(ix), y(iy) {}
     double x;
     double y;
+};
+
+struct InternalPointIndexed: public InternalPoint{
+    InternalPointIndexed( const InternalPoint &ipoint, const int &iindex ): point(ipoint), index(iindex){}
+    InternalPoint point;
+    int index;
+};
+
+struct InternalDistancePointIndexed: public InternalPoint{
+    InternalDistancePointIndexed( const InternalPoint &ipoint, const int &iindex, const double &idistance ): 
+            point(ipoint), index(iindex), distance(idistance){}
+    InternalPoint point;
+    int index;
+    double distance;
 };
 
 struct InternalPose: public InternalPoint{
@@ -49,10 +63,26 @@ struct InternalPose: public InternalPoint{
     double yaw;
 };
 
-struct PointPath{
-    PointPath( std::string iid, std::vector<InternalPoint> ipath ): id(iid), path(ipath){}
-    std::string id;
-    std::vector<InternalPoint> path;
+struct InternalPoseIndexed: public InternalPose{
+    InternalPoseIndexed( const InternalPose &ipose, const int &iindex ): pose(ipose), index(iindex){}
+    InternalPose pose;
+    int index;
+};
+
+struct InternalDistancePoseIndexed: public InternalPose{
+    InternalDistancePoseIndexed( const InternalPose &ipose, const int &iindex, const double &idistance ): 
+            pose(ipose), index(iindex), distance(idistance){}    
+    InternalPose pose;
+    int index;
+    double distance;
+};
+
+struct InternalDistancePointIndexed: public InternalPoint{
+    InternalDistancePointIndexed( const InternalPoint &ipoint, const int &iindex, const double &idistance ): 
+            point(ipoint), index(iindex), distance(idistance){}
+    InternalPoint point;
+    int index;
+    double distance;
 };
 
 struct PosePath{
