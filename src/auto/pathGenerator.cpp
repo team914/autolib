@@ -1,174 +1,112 @@
+//this code was taken from okapilib most credit goes to them
 #include "autolib/auto/pathGenerator.hpp"
+#include <initializer_list>
+#include <vector>
 
 namespace autolib{
-/**
- * PathGenerator::PathGenerator 
- * 
- * @param  {PathGenerator::PathGenerator(} undefined : 
- */
-PathGenerator::PathGenerator(   const std::initializer_list<Point> &iwaypoints,
-                                const okapi::QLength &iminDistanceBetweenPoints){
-    std::vector<Point> tempWaypoints = iwaypoints;
-    if(tempWaypoints.at(0).x.convert(meter) != 0, tempWaypoints.at(0).y.convert(meter) )
-        tempWaypoints.emplace( tempWaypoints.begin(), .00001_mm, .00001_mm );
-    for( Point waypoint: tempWaypoints ){
-        waypoints.path.emplace_back( waypoint.x.convert(meter), waypoint.y.convert(meter) );
+
+PathGenerator::PathGenerator(   const std::initializer_list<double> &iilimits){
+    std::vector<double> ilimits = iilimits;
+    if( ilimits.size() != 3 ){
+//        LOG_WARN(std::string("PathGenerator: Initialized with incorrect number of limits") );
+//        LOG_INFO(std::string("PathGenerator: Please send 3 limits. Look to okapi::PathfinderLimits for more info.") );
+        return;
     }
-    minDistanceBetweenPoints = iminDistanceBetweenPoints.convert(meter);
+    limits = okapi::PathfinderLimits{ ilimits.at(0), ilimits.at(1), ilimits.at(2) };
 
-    #ifdef DEBUG
-        printf("Just ended PathGenerator Waypoints Process\n");
-        printf("Now showing you the path generated in points after being converted to meters\n");
-        int i=0;
-        for (InternalPoint point: waypoints.path){
-            printf("\tWayPoint %d:\n",i);
-            printf("\t\tx=%+f\n", point.x);
-            printf("\t\ty=%+f\n", point.y);
-            i++;
-        }
-    #endif
+    const std::shared_ptr<okapi::Logger> &ilogger = okapi::Logger::getDefaultLogger();
+    logger = ilogger;
 }
 
-/**
- * PathGenerator 
- * 
- * @param  {PathType} pathType : 
- */
-void PathGenerator::generatePath( const PathType &pathType ){
-     if( pathType == PathType::HermiteSpline ){
-        printf("starting to generate Hermite Spline Path\n");
-        InternalPoint currentPoint = waypoints.path.at(0);
-        InternalPoint nextPoint = waypoints.path.at(1);
-        InternalPoint next2Point = waypoints.path.at(2);
-        InternalPoint generatedPoint = currentPoint;
-        int pointIndexMax = -1;
-        for( InternalPoint point: waypoints.path ){
-            pointIndexMax ++;
-        }
-        #ifdef DEBUG
-            printf("Note: pointIndexMax = %d\n", pointIndexMax);
-        #endif
-        for( int pointIndex = 0; pointIndex <= pointIndexMax; pointIndex++ ){
-            if( pointIndex == pointIndexMax - 1 ){
-                currentPoint = waypoints.path.at( pointIndex );
-                nextPoint = waypoints.path.at( pointIndex );
-                next2Point = waypoints.path.at( pointIndex + 1 );
-                #ifdef DEBUG
-                    printf("Note: pointIndex == pointIndexMax - 1\n");
-                #endif
-            } else if( pointIndex == pointIndexMax ){
-                currentPoint = waypoints.path.at( pointIndex );
-                nextPoint = waypoints.path.at( pointIndex );
-                next2Point = waypoints.path.at( pointIndex );
-                #ifdef DEBUG
-                    printf("Note: pointIndex == pointIndexMax\n");
-                #endif
-            }else{
-                currentPoint = waypoints.path.at( pointIndex );
-                nextPoint = waypoints.path.at( pointIndex + 1);
-                next2Point = waypoints.path.at( pointIndex + 2);
-                #ifdef DEBUG
-                    printf("Note: pointIndex < pointIndexMax - 1\n");
-                #endif
-            }
-            for( double betweenPointIndex = 0; betweenPointIndex <= 1; betweenPointIndex+=minDistanceBetweenPoints ){
-                path.path.emplace_back( generatedPoint );
-                generatedPoint = HermiteSplineMath::findNextPoint( betweenPointIndex, currentPoint, nextPoint, nextPoint, next2Point );
-                #ifdef DEBUG
-                    printf("\tpoint generated between points%d and %d with x = %+f and y = %+f\n", pointIndex, pointIndex + 1 <= waypoints.path.size() ? pointIndex + 1 : pointIndex, generatedPoint.x, generatedPoint.y );
-                #endif
-            }
-        }
-    }else if( pathType == PathType::StraightInterpolation ){
-        printf("starting to generate a Straight Interpolation Path\n");
-        InternalPoint currentPoint = waypoints.path.at(0);
-        InternalPoint nextPoint = waypoints.path.at(1);
-        InternalPoint generatedPoint = currentPoint;
+void PathGenerator::generatePath(const std::initializer_list<okapi::Point> &iwaypoints, const std::string &iid){
+    generatePath( iwaypoints, iid, limits );
+}
 
-        for( int pointIndex = 0; pointIndex <= waypoints.path.size(); pointIndex++ ){
-            currentPoint = waypoints.path.at( pointIndex );
-            nextPoint = waypoints.path.at( pointIndex + 1 <= waypoints.path.size() ? pointIndex + 1 : pointIndex );
-            #ifdef DEBUG
-                printf("Note: currentPoint = (%f, %f), nextPoint = (%f, %f)\n", currentPoint.x, currentPoint.y, nextPoint.x, nextPoint.y);
-            #endif
-            generatedPoint = currentPoint;
-            while( generatedPoint.x != nextPoint.x && generatedPoint.y != nextPoint.y ){
-                path.path.push_back( generatedPoint );
-                generatedPoint = StraightInterpolationMath::findNextPoint( generatedPoint, minDistanceBetweenPoints, currentPoint, nextPoint );                
-                #ifdef DEBUG
-                    printf("\tpoint generated between points%d and %d with x = %f and y = %f\n", pointIndex, pointIndex + 1 <= waypoints.path.size() ? pointIndex + 1 : pointIndex, generatedPoint.x, generatedPoint.y );
-                #endif
-            }
-        }
-    }else{
-        printf("Note: When creating a path with autolib's PathGenerator, you need to send either PathType::StraightInterpolation or PathType::HermiteSpline\n");
+void PathGenerator::generatePath(   const std::initializer_list<okapi::Point> &iwaypoints,
+                                    const std::string &iid,
+                                    const okapi::PathfinderLimits &ilimits ){
+    if (iwaypoints.size() == 0) {
+        // No point in generating a path
+//        LOG_WARN(std::string(
+//        "AsyncMotionProfileController: Not generating a path because no waypoints were given."));
+        return;
     }
-    printf("Successfully Generated Path\n");
-}
 
-/**
- * PathGenerator 
- * 
- */
-void PathGenerator::showPath(){
-    printf("Showing Path\n");
-    int pointIndex = 0;
-    for( InternalPoint point: path.path ){
-        printf("\tPoint%d\n", pointIndex);
-        printf("\t\tx = %f\n", point.x);
-        printf("\t\ty = %f\n", point.y);
-        pointIndex ++;
+    std::vector<Waypoint> points;
+    points.reserve(iwaypoints.size());
+    for (auto &point : iwaypoints) {
+        points.push_back(
+        Waypoint{point.x.convert(okapi::meter), point.y.convert(meter), point.theta.convert(radian)});
     }
-    printf("Done Showing Path\n");
-    printf("Note: If you want to, you can graph this line on desmos.com. For instructions ping me on the unofficial vex discord @potatehoes#7782, or email me acetousk@gmail.com\n");
-}
 
-/**
- * PathGenerator 
- * 
- * @return {InternalPath}  : 
- */
-InternalPath PathGenerator::getPath(){
-    return path;
-}
+//    LOG_INFO(std::string("AsyncMotionProfileController: Preparing trajectory"));
 
-/**
- * PathGenerator 
- * 
- */
-void PathGenerator::debugHermiteSpline(){
-        InternalPath debugPath;
-        debugPath.path.emplace_back( InternalPoint{0,0} );
-        debugPath.path.emplace_back( InternalPoint{-1,-1} );
-        debugPath.path.emplace_back( InternalPoint{2,0} );
-        debugPath.path.emplace_back( InternalPoint{1,1} );
+    TrajectoryCandidate candidate;
+    pathfinder_prepare(points.data(),
+                        static_cast<int>(points.size()),
+                        FIT_HERMITE_CUBIC,
+                        PATHFINDER_SAMPLES_FAST,
+                        0.010,
+                        ilimits.maxVel,
+                        ilimits.maxAccel,
+                        ilimits.maxJerk,
+                        &candidate);
 
-        InternalPoint currentPointDebug = debugPath.path.at(0);
-        InternalPoint nextPointDebug = debugPath.path.at(1);
-        InternalPoint next2PointDebug = debugPath.path.at(2);
-        InternalPoint generatedPoint = currentPointDebug;
-        int pointIndexMax = -1;
-        for( InternalPoint point: debugPath.path ){
-            pointIndexMax ++;
+    const int length = candidate.length;
+
+    if (length < 0) {
+        std::string message = "AsyncMotionProfileController: Length was negative. " /*+
+                            getPathErrorMessage(points, ipathId, length)*/;
+
+        if (candidate.laptr) {
+        free(candidate.laptr);
         }
-        printf("Note: pointIndexMax = %d\n", pointIndexMax);
-        for( int pointIndex = 0; pointIndex <= pointIndexMax; pointIndex++ ){
-            if( pointIndex == pointIndexMax - 1 ){
-                currentPointDebug = debugPath.path.at( pointIndex );
-                nextPointDebug = debugPath.path.at( pointIndex );
-                next2PointDebug = debugPath.path.at( pointIndex + 1 );
-            } else if( pointIndex == pointIndexMax ){
-                currentPointDebug = debugPath.path.at( pointIndex );
-                nextPointDebug = debugPath.path.at( pointIndex );
-                next2PointDebug = debugPath.path.at( pointIndex );
-            }else{
-                currentPointDebug = debugPath.path.at( pointIndex );
-                nextPointDebug = debugPath.path.at( pointIndex + 1);
-                next2PointDebug = debugPath.path.at( pointIndex + 2);
-            }
-            HermiteSplineMath::debug( minDistanceBetweenPoints, currentPointDebug, nextPointDebug, nextPointDebug, next2PointDebug ); 
+
+        if (candidate.saptr) {
+        free(candidate.saptr);
         }
-        printf("Note: done debugging HermiteSpline\n");
+
+//        LOG_ERROR(message);
+        throw std::runtime_error(message);
+    }
+
+    auto *trajectory = new Segment[length];
+
+    if (trajectory == nullptr) {
+        std::string message = "AsyncMotionProfileController: Could not allocate trajectory. " /*+
+                            getPathErrorMessage(points, ipathId, length)*/;
+
+        if (candidate.laptr) {
+        free(candidate.laptr);
+        }
+
+        if (candidate.saptr) {
+        free(candidate.saptr);
+        }
+
+//        LOG_ERROR(message);
+        throw std::runtime_error(message);
+    }
+
+//    LOG_INFO(std::string("AsyncMotionProfileController: Generating path"));
+
+    pathfinder_generate(&candidate, trajectory);
+
+//    free(trajectory);
+
+    // Free the old path before overwriting it
+//    forceRemovePath(ipathId);
+
+    std::vector<InternalPose> internalPath;
+    for( int i = 0; i < candidate.length; i++ ){
+        //LOG_INFO(std::string("PathGenerator: Pose Generated") );
+        internalPath.emplace_back( InternalPose{ trajectory[i].x, trajectory[i].y, trajectory[i].heading} );
+    }
+
+    paths.emplace_back( PosePath{ iid, internalPath } );
+
+//    LOG_INFO("AsyncMotionProfileController: Completely done generating path " + ipathId);
+//    LOG_DEBUG("AsyncMotionProfileController: Path length: " + std::to_string(length));    
 }
 
 }//autolib

@@ -21,7 +21,7 @@ class PurePursuitMath{
      * @param  {InternalPath} path           : 
      * @return {InternalPoint}               : 
      */
-    static InternalPoint findNearestPoint( const InternalPoint &currentPoint, const InternalPath &possiblePoints, const InternalPath &path);
+//    static InternalPoint findNearestPoint( const InternalPoint &currentPoint, const InternalPath &possiblePoints, const InternalPath &path);
     
     /**
      * 
@@ -31,7 +31,7 @@ class PurePursuitMath{
      * @param  {double} lookaheadDistance   : 
      * @return {InternalPoint}              : 
      */
-    static InternalPoint findGoalPoint( const InternalPoint &currentPoint, const InternalPoint &nearestPoint, const InternalPath &path, const double &lookaheadDistance );
+//    static InternalPoint findGoalPoint( const InternalPoint &currentPoint, const InternalPoint &nearestPoint, const InternalPath &path, const double &lookaheadDistance );
 
     /**
      * 
@@ -40,7 +40,7 @@ class PurePursuitMath{
      * @param  {double} robotTheta        : 
      * @return {InternalPoint}            : 
      */
-    static InternalPoint convertGlobalToLocalPoints( const InternalPoint &robotPoint, const InternalPoint &goalPoint, const double &robotTheta );
+//    static InternalPoint convertGlobalToLocalPoints( const InternalPoint &robotPoint, const InternalPoint &goalPoint, const double &robotTheta );
 
     /**
      * 
@@ -48,7 +48,7 @@ class PurePursuitMath{
      * @param  {double} lookaheadDistance     : 
      * @return {Curvature}                    : 
      */
-    static Curvature findCurvature( const InternalPoint &localGoalPoint, const double &lookaheadDistance );
+//    static Curvature findCurvature( const InternalPoint &localGoalPoint, const double &lookaheadDistance );
 
     /**
      * 
@@ -58,7 +58,7 @@ class PurePursuitMath{
      * @param  {double} lookaheadDistance       : 
      * @return {InternalPath}                   : 
      */
-    static InternalPath findPossiblePoints( const InternalPoint &currentPoint, const InternalPoint &lastNearestPoint, const InternalPath &path, const double &lookaheadDistance );
+//    static InternalPath findPossiblePoints( const InternalPoint &currentPoint, const InternalPoint &lastNearestPoint, const InternalPath &path, const double &lookaheadDistance );
 
     /**
      * 
@@ -67,7 +67,7 @@ class PurePursuitMath{
      * @param  {double} lookaheadDistance  : 
      * @return {bool}                      : 
      */
-    static bool isPointWithinCircle( const InternalPoint &point, const InternalPoint &centerPoint, const double &lookaheadDistance );
+//    static bool isPointWithinCircle( const InternalPoint &point, const InternalPoint &centerPoint, const double &lookaheadDistance );
 
     /**
      * 
@@ -75,14 +75,14 @@ class PurePursuitMath{
      * @param  {InternalPoint} P2 : 
      * @return {double}           : 
      */
-    static double findDistanceBetweenPoints( const InternalPoint &P1, const InternalPoint &P2 );
+//    static double findDistanceBetweenPoints( const InternalPoint &P1, const InternalPoint &P2 );
 
     /**
      * 
      * @param  {std::vector<double>} list : 
      * @return {double}                   : 
      */
-    static double findLowestValue( const std::vector<double> &list );
+//    static double findLowestValue( const std::vector<double> &list );
 
     /**
      * 
@@ -90,7 +90,7 @@ class PurePursuitMath{
      * @param  {std::vector<int>} pos     : 
      * @return {int}                      : 
      */
-    static int findLowestValuePos( const std::vector<double> &list, const std::vector<int> &pos );
+//    static int findLowestValuePos( const std::vector<double> &list, const std::vector<int> &pos );
 
     /**
      * 
@@ -99,7 +99,7 @@ class PurePursuitMath{
      * @param  {InternalPath} path              : 
      * @param  {double} lookaheadDistance       : 
      */
-    static void debug( const InternalPoint &currentPoint, const InternalPoint &lastNearestPoint, const InternalPath &path, const double &lookaheadDistance  );
+//    static void debug( const InternalPoint &currentPoint, const InternalPoint &lastNearestPoint, const InternalPath &path, const double &lookaheadDistance  );
 };
 
 }//autolib
