@@ -41,7 +41,7 @@ class PurePursuit {
      * @return {Curvature}            :
      *  example: ask me
      */
-    PurePursuitTriangle getGoalCurvature( const Pose &ipose, const std::string &iid );
+    PurePursuitTriangle run( const Pose &ipose, const std::string &iid );
 
     protected:
     const std::vector<IndexedDistancePosePath> paths;
