@@ -37,14 +37,15 @@ void opcontrol() {
             // .withSensors({'G', 'H'}, {'E', 'F'})
             //            .withLogger(std::make_shared<Logger>(
             //              std::make_unique<Timer>(), "/ser/sout", Logger::LogLevel::debug))
-/*
+
   autolib::PathGenerator pathGenerator( {1.0, 2.0, 4.0} );
   pathGenerator.generatePath( 
     { okapi::Point{ 1_ft, 1_ft, 270_deg }, okapi::Point{ 1_ft, 0_ft, 90_deg } }, 
     std::string("test")
   );
 
-  autolib::PurePursuit ( {1.0, 2.0, 4.0} );
+  autolib::PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
+  purePursuit.getGoalCurvature( autolib::Pose{ 0_ft, 0_ft, 45_deg }, std::string("test") );
 //*/
 
 

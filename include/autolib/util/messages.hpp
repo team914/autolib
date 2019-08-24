@@ -25,62 +25,53 @@ struct Path{
     std::vector<Point> path;
 };
 
-struct Curvature{
-    double yaw;
-    double distance;
-};
-
-//This is depricated and is going to be deleted in version 1.0.0
 struct Pose{
     okapi::QLength x;
     okapi::QLength y;
     okapi::QAngle yaw;
 };
 
-//These are only meant for internal uses. Do not use these unless you are an expert.
 struct InternalPoint{
-    InternalPoint( const double &ix, const double &iy) : x(ix), y(iy) {}
     double x;
     double y;
 };
 
-struct InternalPointIndexed: public InternalPoint{
-    InternalPointIndexed( const InternalPoint &ipoint, const int &iindex ): point(ipoint), index(iindex){}
-    InternalPoint point;
-    int index;
+struct InternalPath{
+    std::vector<InternalPoint> path;
 };
+//up til here
 
-struct InternalDistancePointIndexed: public InternalPoint{
-    InternalDistancePointIndexed( const InternalPoint &ipoint, const int &iindex, const double &idistance ): 
-            point(ipoint), index(iindex), distance(idistance){}
-    InternalPoint point;
-    int index;
+struct Curvature{
+    double yaw;
     double distance;
 };
 
-struct InternalPose: public InternalPoint{
-    InternalPose( double ix, double iy, double iyaw ): InternalPoint(ix, iy), yaw(iyaw){}
+
+
+//This is depricated and is going to be deleted in version 1.0.0
+
+
+//These are only meant for internal uses. Do not use these unless you are an expert.
+struct InternalPose{
+    double x;
+    double y;
     double yaw;
 };
 
-struct InternalPoseIndexed: public InternalPose{
-    InternalPoseIndexed( const InternalPose &ipose, const int &iindex ): pose(ipose), index(iindex){}
+struct PurePursuitTriangle{
+    InternalPose currentPose;
+    InternalPose localGoalPose;
+    double l;
+    double r;
+};
+
+struct InternalPoseIndexed{
     InternalPose pose;
     int index;
 };
 
-struct InternalDistancePoseIndexed: public InternalPose{
-    InternalDistancePoseIndexed( const InternalPose &ipose, const int &iindex, const double &idistance ): 
-            pose(ipose), index(iindex), distance(idistance){}    
+struct InternalDistancePoseIndexed{
     InternalPose pose;
-    int index;
-    double distance;
-};
-
-struct InternalDistancePointIndexed: public InternalPoint{
-    InternalDistancePointIndexed( const InternalPoint &ipoint, const int &iindex, const double &idistance ): 
-            point(ipoint), index(iindex), distance(idistance){}
-    InternalPoint point;
     int index;
     double distance;
 };
@@ -90,9 +81,41 @@ struct PosePath{
     std::vector<InternalPose> path;
 };
 
-//This is depricated and is going to be deleted in version 1.0.0
-struct InternalPath{
+struct IndexedPosePath{
+    std::string id;
+    std::vector<InternalPoseIndexed> path;
+};
+
+struct IndexedDistancePosePath{
+    std::string id;
+    std::vector<InternalDistancePoseIndexed> path;
+};
+
+/**
+ * This will be needed in the future
+ */
+/*
+struct InternalPoint{
+    double x;
+    double y;
+};
+
+struct InternalPointIndexed{
+    InternalPoint point;
+    int index;
+};
+
+struct InternalDistancePointIndexed{
+    InternalPoint point;
+    int index;
+    double distance;
+};
+
+
+struct PointPath{
+    std::string id;
     std::vector<InternalPoint> path;
 };
+//*/
 
 };//autolib

@@ -25,7 +25,7 @@ class PurePursuit {
      * @param  {okapi::QLength} ilookaheadDistance : 
      *  example: 1_ft
      */
-    PurePursuit( const std::vector<PosePath> &ipaths, const okapi::QLength &ilookaheadDistance );
+    PurePursuit( const std::vector<IndexedDistancePosePath> &ipaths, const okapi::QLength &ilookaheadDistance );
 
     /**
      * This should be run in a loop during your autonomous. The input is the x, y, and theta in global coordinates 
@@ -41,32 +41,28 @@ class PurePursuit {
      * @return {Curvature}            :
      *  example: ask me
      */
-    Curvature getGoalCurvature( const Pose &ipose, const std::string &iid );
+    PurePursuitTriangle getGoalCurvature( const Pose &ipose, const std::string &iid );
 
     protected:
-    const std::vector<PosePath> paths;
-    PosePath &path;
-    PosePath possiblePoses;
-    PosePath nearestPoses;
-    PosePath currentPose;
-    PosePath goalPose;
-    PosePath localGoalPose;
+    const std::vector<IndexedDistancePosePath> paths;
+    IndexedDistancePosePath path;
+    double avgDistanceBetweenPoses;
+
+    IndexedDistancePosePath nearestPoses;
+    PosePath currentPoses;
+    IndexedPosePath goalPoses;
+    std::vector<PurePursuitTriangle> triangles;
 
     double lookaheadDistance;
 
-    void findNearestPose( const InternalPose & );
+    void findPath( const std::string & );
+    void findNearestPose( const Pose & );
+    static double findDistanceBetweenPoses( const InternalPose &, const InternalPose & );
 
     void findGoalPose();
-
-    void convertGlobalToLocalPoses();
-
-    Curvature findCurvature();
-
-    void findPossiblePoses( const InternalPose &currentPose, const InternalPose &lastNearestPose, const InternalPath &path, const double &lookaheadDistance );
+    PurePursuitTriangle findPurePursuitTriangle();
 
     bool isPoseWithinCircle( const InternalPose &point, const InternalPose &centerPose, const double &lookaheadDistance );
-
-    double findDistanceBetweenPoses( const InternalPose &P1, const InternalPose &P2 );
 
     double findLowestValue( const std::vector<double> &list );
 

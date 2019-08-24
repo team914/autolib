@@ -97,16 +97,25 @@ void PathGenerator::generatePath(   const std::initializer_list<okapi::Point> &i
     // Free the old path before overwriting it
 //    forceRemovePath(ipathId);
 
-    std::vector<InternalPose> internalPath;
+    std::vector<InternalDistancePoseIndexed> poses;
     for( int i = 0; i < candidate.length; i++ ){
         //LOG_INFO(std::string("PathGenerator: Pose Generated") );
-        internalPath.emplace_back( InternalPose{ trajectory[i].x, trajectory[i].y, trajectory[i].heading} );
+        poses.emplace_back( InternalDistancePoseIndexed{ InternalPose{trajectory[i].x, trajectory[i].y, trajectory[i].heading}, candidate.path_length, candidate.totalLength } );
     }
+    IndexedDistancePosePath path{ iid,  };
 
-    paths.emplace_back( PosePath{ iid, internalPath } );
+    paths.emplace_back( path );
 
 //    LOG_INFO("AsyncMotionProfileController: Completely done generating path " + ipathId);
 //    LOG_DEBUG("AsyncMotionProfileController: Path length: " + std::to_string(length));    
+}
+
+void PathGenerator::showPath(){
+
+}
+
+std::vector<IndexedDistancePosePath> &PathGenerator::getPaths(){
+    return paths;
 }
 
 }//autolib

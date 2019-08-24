@@ -21,19 +21,11 @@ class PathGenerator{
                         const std::string &iid,
                         const okapi::PathfinderLimits &ilimits);
 
-    void showPath(){
-        for( auto &&path: paths ){
-            printf("Starting to show path");
-            printf(path.id.c_str());
-            printf("\n");
-            for( auto &&pose: path.path ){
-                printf("\tPoint(%+f, %+f, %+f)\n", pose.x, pose.y, pose.yaw);
-            }
-        }
-    }
+    void showPath();
+    std::vector<IndexedDistancePosePath> &getPaths();
 
     protected:
-    std::vector<PosePath> paths;
+    std::vector<IndexedDistancePosePath> paths;
     std::shared_ptr<okapi::Logger> logger;
     okapi::PathfinderLimits limits;
     std::vector<Point> waypoints;
