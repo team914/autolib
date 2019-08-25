@@ -4,24 +4,10 @@
 #include "autolib/api.hpp"
 
 std::shared_ptr<OdomChassisController> drive;
-std::shared_ptr<ChassisController> finder;
 
-void printSensorVals(void *) {
-  while (true) {
-    // auto state = drive->model().getSensorVals();
-    // printf("left: %ld, right: %ld\n", state[0], state[1]);
-    auto state = drive->getState(StateMode::FRAME_TRANSFORMATION);
-    printf("x=%f, y=%f, theta=%f\n",
-           state.x.convert(inch),
-           state.y.convert(inch),
-           state.theta.convert(degree));
-    pros::delay(50);
-  }
-}
+using namespace autolib;
 
 void opcontrol() {
-  printf("asdf\n");
-  pros::delay(100);
 
   Logger::setDefaultLogger(
     std::make_shared<Logger>(std::make_unique<Timer>(), "/ser/sout", Logger::LogLevel::debug));
@@ -30,7 +16,7 @@ void opcontrol() {
             .withMotors({-18, 19, 20}, {16, -17, -14})
             .withDimensions({{4.1_in, 11.375_in}, imev5GreenTPR})
             .withMaxVelocity(100)
-            .withOdometry()
+            .withOdometry(StateMode::FRAME_TRANSFORMATION)
             .buildOdometry();
             // .withDimensions({{3.125_in, 11.375_in}, 4096})
             // .withGains({0.006, 0, 0.0001}, {0.006, 0, 0.0001})
@@ -38,14 +24,14 @@ void opcontrol() {
             //            .withLogger(std::make_shared<Logger>(
             //              std::make_unique<Timer>(), "/ser/sout", Logger::LogLevel::debug))
 
-  autolib::PathGenerator pathGenerator( {1.0, 2.0, 4.0} );
+  PathGenerator pathGenerator( {1.0, 2.0, 4.0} );
   pathGenerator.generatePath( 
-    { okapi::Point{ 1_ft, 1_ft, 270_deg }, okapi::Point{ 1_ft, 0_ft, 90_deg } }, 
+    { Pose{ 1_ft, 1_ft, 270_deg }, Pose{ 1_ft, 0_ft, 90_deg } }, 
     std::string("test")
   );
 
   autolib::PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
-  purePursuit.run( autolib::Pose{ 0_ft, 0_ft, 45_deg }, std::string("test") );
+  purePursuit.run( drive->getState(), std::string("test") );
 //*/
 
 

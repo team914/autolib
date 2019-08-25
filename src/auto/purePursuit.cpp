@@ -15,6 +15,10 @@ PurePursuit::PurePursuit( const std::vector<IndexedDistancePosePath> &ipaths, co
     lookaheadDistance = ilookaheadDistance.convert(meter);
 }
 
+PurePursuitTriangle PurePursuit::run( const okapi::OdomState &ipose, const std::string &iid ){
+    return run( Pose{ ipose.x, ipose.y, ipose.theta }, iid );
+}
+
 /**
  * PurePursuit 
  * 
@@ -23,7 +27,7 @@ PurePursuit::PurePursuit( const std::vector<IndexedDistancePosePath> &ipaths, co
  * @param  {okapi::QAngle} itheta : 
  * @return {Curvature}            : 
  */
-PurePursuitTriangle PurePursuit::getGoalCurvature( const Pose &ipose, const std::string &iid ){
+PurePursuitTriangle PurePursuit::run( const Pose &ipose, const std::string &iid ){
     if( !path.path.empty() ){
         if( path.id != iid )
             findPath( iid );

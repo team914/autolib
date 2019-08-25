@@ -41,6 +41,7 @@ class PurePursuit {
      * @return {Curvature}            :
      *  example: ask me
      */
+    PurePursuitTriangle run( const okapi::OdomState &ipose, const std::string &iid );
     PurePursuitTriangle run( const Pose &ipose, const std::string &iid );
 
     protected:
