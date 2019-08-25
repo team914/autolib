@@ -1,18 +1,11 @@
-//this code was taken from okapilib most credit goes to them
 #include "autolib/auto/pathGenerator.hpp"
 #include <initializer_list>
 #include <vector>
 
 namespace autolib{
 
-PathGenerator::PathGenerator(   const std::initializer_list<double> &iilimits){
-    std::vector<double> ilimits = iilimits;
-    if( ilimits.size() != 3 ){
-//        LOG_WARN(std::string("PathGenerator: Initialized with incorrect number of limits") );
-//        LOG_INFO(std::string("PathGenerator: Please send 3 limits. Look to okapi::PathfinderLimits for more info.") );
-        return;
-    }
-    limits = okapi::PathfinderLimits{ ilimits.at(0), ilimits.at(1), ilimits.at(2) };
+PathGenerator::PathGenerator( const okapi::PathfinderLimits &ilimits ){
+    limits = ilimits;
 
     const std::shared_ptr<okapi::Logger> &ilogger = okapi::Logger::getDefaultLogger();
     logger = ilogger;

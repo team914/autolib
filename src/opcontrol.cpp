@@ -45,7 +45,7 @@ void opcontrol() {
   );
 
   autolib::PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
-  purePursuit.getGoalCurvature( autolib::Pose{ 0_ft, 0_ft, 45_deg }, std::string("test") );
+  purePursuit.run( autolib::Pose{ 0_ft, 0_ft, 45_deg }, std::string("test") );
 //*/
 
 

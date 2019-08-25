@@ -13,7 +13,7 @@ namespace autolib{
 
 class PathGenerator{
     public:
-    PathGenerator(  const std::initializer_list<double> &ilimits );
+    PathGenerator( const okapi::PathfinderLimits &ilimits );
 
     void generatePath(const std::initializer_list<okapi::Point> &iwaypoints, const std::string &iid);
 
