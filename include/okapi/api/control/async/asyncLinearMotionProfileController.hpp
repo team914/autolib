@@ -39,7 +39,7 @@ class AsyncLinearMotionProfileController : public AsyncPositionController<std::s
     const std::shared_ptr<ControllerOutput<double>> &ioutput,
     const QLength &idiameter,
     const AbstractMotor::GearsetRatioPair &ipair,
-    const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>());
+    const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger());
 
   AsyncLinearMotionProfileController(AsyncLinearMotionProfileController &&other) = delete;
 
@@ -79,10 +79,13 @@ class AsyncLinearMotionProfileController : public AsyncPositionController<std::s
 
   /**
    * Removes a path and frees the memory it used.
+   * This function returns true if the path was either deleted or didn't exist in the first place.
+   * It returns false if the path could not be removed because it is running.
    *
    * @param ipathId A unique identifier for the path, previously passed to generatePath()
+   * @return True if the path no longer exists
    */
-  void removePath(const std::string &ipathId);
+  bool removePath(const std::string &ipathId);
 
   /**
    * Gets the identifiers of all paths saved in this AsyncMotionProfileController.
@@ -224,6 +227,14 @@ class AsyncLinearMotionProfileController : public AsyncPositionController<std::s
    */
   CrossplatformThread *getThread() const;
 
+  /**
+   * Attempts to remove a path without stopping execution, then if that fails,
+   * disables the controller and removes the path
+   *
+   * @param ipathId The path ID that will be removed
+   */
+  void forceRemovePath(const std::string &ipathId);
+
   protected:
   struct TrajectoryPair {
     Segment *segment;
@@ -238,6 +249,7 @@ class AsyncLinearMotionProfileController : public AsyncPositionController<std::s
   AbstractMotor::GearsetRatioPair pair;
   double currentProfilePosition{0};
   TimeUtil timeUtil;
+  CrossplatformMutex pathRemoveMutex;
 
   std::string currentPath{""};
   std::atomic_bool isRunning{false};

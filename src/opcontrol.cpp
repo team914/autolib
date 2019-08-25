@@ -1,65 +1,61 @@
 #include "main.h"
 #include "okapi/api.hpp"
+#include "okapi/pathfinder/include/pathfinder.h"
 #include "autolib/api.hpp"
 
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
+std::shared_ptr<OdomChassisController> drive;
+std::shared_ptr<ChassisController> finder;
 
-using namespace autolib;
+void printSensorVals(void *) {
+  while (true) {
+    // auto state = drive->model().getSensorVals();
+    // printf("left: %ld, right: %ld\n", state[0], state[1]);
+    auto state = drive->getState(StateMode::FRAME_TRANSFORMATION);
+    printf("x=%f, y=%f, theta=%f\n",
+           state.x.convert(inch),
+           state.y.convert(inch),
+           state.theta.convert(degree));
+    pros::delay(50);
+  }
+}
 
 void opcontrol() {
+  printf("asdf\n");
+  pros::delay(100);
 
-	PathGenerator pathGenerator(
-	{
-		autolib::Point{ -1_ft, 1_ft },
-		autolib::Point{ 0_ft, 2_ft },
-		autolib::Point{ 1_ft, 1_ft },
-		autolib::Point( 1_in, 1_in )
-	}, 1_in );
+  Logger::setDefaultLogger(
+    std::make_shared<Logger>(std::make_unique<Timer>(), "/ser/sout", Logger::LogLevel::debug));
 
-	pathGenerator.generatePath( PathGenerator::PathType::HermiteSpline );
+  drive = ChassisControllerBuilder()
+            .withMotors({-18, 19, 20}, {16, -17, -14})
+            .withDimensions({{4.1_in, 11.375_in}, imev5GreenTPR})
+            .withMaxVelocity(100)
+            .withOdometry()
+            .buildOdometry();
+            // .withDimensions({{3.125_in, 11.375_in}, 4096})
+            // .withGains({0.006, 0, 0.0001}, {0.006, 0, 0.0001})
+            // .withSensors({'G', 'H'}, {'E', 'F'})
+            //            .withLogger(std::make_shared<Logger>(
+            //              std::make_unique<Timer>(), "/ser/sout", Logger::LogLevel::debug))
 
-	PurePursuit purePursuit( pathGenerator.getPath(), 4_in );
+  autolib::PathGenerator pathGenerator( {1.0, 2.0, 4.0} );
+  pathGenerator.generatePath( 
+    { okapi::Point{ 1_ft, 1_ft, 270_deg }, okapi::Point{ 1_ft, 0_ft, 90_deg } }, 
+    std::string("test")
+  );
 
-	purePursuit.getGoalCurvature( 0_ft, 0_in, 0_rad );
+  autolib::PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
+  purePursuit.run( autolib::Pose{ 0_ft, 0_ft, 45_deg }, std::string("test") );
+//*/
 
-	Pose pose{0_ft, 0_ft, 90_deg};
-	Pose startPose{9_ft, 9_ft, 180_deg};
-	Display debug(lv_scr_act(), LV_COLOR_BLACK, startPose);
 
-	while(true){
-		for(int i = 0; i<=3; i++){
-			printf("i = %d\n", i);
-			switch( i ){
-				case 0:
-					pose = Pose{ 3_ft, 9_ft, 270_deg };
-					debug.changePose( pose );
-				break;
-				case 1:
-					pose = Pose{ 3_ft, 3_ft, 0_deg };
-					debug.changePose( pose );
-				break;
-				case 2:
-					pose = Pose{ 9_ft, 3_ft, 90_deg };
-					debug.changePose( pose );
-				break;
-				case 3:
-					debug.changePose( startPose );
-				break;
+  //  pros::Task printSensorValsTask(printSensorVals);
 
-			}
-			pros::delay(1000);
-		}
-	}
+  //  drive->moveDistance(6_in);
+  //  drive->turnAngle(90_deg);
+  //  drive->moveDistance(6_in);
+
+  while (true) {
+    pros::delay(50);
+  }
 }

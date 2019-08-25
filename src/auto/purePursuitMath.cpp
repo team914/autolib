@@ -1,6 +1,6 @@
 #include "autolib/auto/purePursuitMath.hpp"
 #include "autolib/util/messages.hpp"
-
+/*
 namespace autolib{
 
 InternalPoint PurePursuitMath::findNearestPoint( const InternalPoint &currentPoint, const InternalPath &possiblePoints, const InternalPath &path){
@@ -81,7 +81,8 @@ InternalPath PurePursuitMath::findPossiblePoints( const InternalPoint &currentPo
         printf("Now Debugging FindPossiblePoints\n");
         printf("\tmaxPointIndex = %d\n", maxPointIndex);
     #endif
-    for( int pointIndex = lastNearestPoint.pos; pointIndex <= maxPointIndex; pointIndex+=1/*This shouldn't be .5 but otherwise it skips a number. I have no idea why... */ ){
+    for( int pointIndex = lastNearestPoint.pos; pointIndex <= maxPointIndex; pointIndex+=1/*This shouldn't be .5 but otherwise it skips a number. I have no idea why... */// ){
+/*
         if( pointIndex == -1 ){
             pointIndex = 0;
         }
@@ -153,5 +154,5 @@ void PurePursuitMath::debug( const InternalPoint &currentPoint, const InternalPo
     printf("the closet point = (%f, %f, %d)\n", path.path.at(lowestDistancePos).x, path.path.at(lowestDistancePos).y, lowestDistancePos );
 
 }
-
 }//autolib
+//*/
