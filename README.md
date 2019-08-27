@@ -38,12 +38,12 @@ For a good pull request, we ask you provide the following:
 ## Implimentation
 
 ### Dependancies
- - OkapiLib's branch [feature/odometry](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry)
+ - OkapiLib's branch [feature/v4.0.0](https://github.com/OkapiLib/OkapiLib/tree/feature/v4.0.0)
 
- *Note: Make sure that you install okapi's **feature/odomtry** branch rather than some other branch.*
+ *Note: Make sure that you install okapi's **feature/v4.0.0** branch rather than some other branch.*
 
 ### Robot
-We suggest that you use a robot similair to the one described in the 5225A Pilons Position Tracking [Document](https://github.com/OkapiLib/OkapiLib/tree/feature/odometry), however we support basically any configuration of a Skid Steer or X Drive.
+We suggest that you use a robot similair to the one described in the 5225A Pilons Position Tracking [Document](https://github.com/team914/autolib-pdfs/blob/master/pilons-position-tracking.pdf), however we support basically any configuration of a Skid Steer or X Drive.
 
 *Note: Before you begin to use AutoLib we suggest that you [read up](https://github.com/team914/autolib/wiki/Basic-Autonomous-Tiers-Theory) on the algorithms that we use.*
 
