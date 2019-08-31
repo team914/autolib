@@ -2,8 +2,8 @@
 
 **Summary** 
 
-AutoLib is a Pros C++ Library based off of OkapiLib for Advanced Vex Autonomous Programming. 
- 
+AutoLib is a Pros C++ Library for Advanced Vex Autonomous Programming
+
 *Note: AutoLib v1.0.0 is coming out soon! And we would love your contributions! Click to [contact us](https://github.com/team914/autolib#contact).* 
 
 ## Why AutoLib?
