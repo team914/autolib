@@ -16,7 +16,8 @@ PurePursuit::PurePursuit( const std::vector<IndexedDistancePosePath> &ipaths, co
 }
 
 PurePursuitTriangle PurePursuit::run( const okapi::OdomState &ipose, const std::string &iid ){
-    return run( Pose{ ipose.x, ipose.y, ipose.theta }, iid );
+    okapi::OdomState pose = std::move(ipose);
+    return run( Pose{ pose.x, pose.y, pose.theta }, iid );
 }
 
 /**
@@ -33,7 +34,7 @@ PurePursuitTriangle PurePursuit::run( const Pose &ipose, const std::string &iid 
             findPath( iid );
     }
 
-    findNearestPose( ipose );
+//    findNearestPose( ipose );
     findGoalPose();
     return findPurePursuitTriangle();
 }
@@ -54,6 +55,7 @@ double PurePursuit::findDistanceBetweenPoses( const InternalPose &P1, const Inte
     return std::sqrt( okapi::ipow( P2.x - P1.x, 2 ) + okapi::ipow( P2.y - P1.y, 2 ) );
 }
 
+//bad method
 void PurePursuit::findNearestPose( const Pose &iipose ){
     InternalPose ipose{ iipose.x.convert(meter), iipose.y.convert(meter), iipose.yaw.convert(radian) };
     if( currentPoses.path.empty() )
