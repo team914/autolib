@@ -62,7 +62,7 @@ class PurePursuit {
 
     void findGoalPose();
     PurePursuitTriangle findPurePursuitTriangle();
-
+ 
     bool isPoseWithinCircle( const InternalPose &point, const InternalPose &centerPose, const double &lookaheadDistance );
 
     double findLowestValue( const std::vector<double> &list );
