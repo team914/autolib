@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c95e9de4-52e0-497b-a589-21fe73676596/deploy-status)](https://app.netlify.com/sites/autolib-docs/deploys)
 # autolib
 AutoLib is a Pros C++ Library based off of OkapiLib for Advanced Vex Autonomous Programming
 
