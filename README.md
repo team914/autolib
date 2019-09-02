@@ -61,16 +61,16 @@ AutoLib is licensed under the Mozilla Public License 2.0.
 ## Thank You!
 Huge Thanks to the following. AutoLib wouldn't be AutoLib without these wonderful people.
 
-Theo Lemay, 7842F - theol0403
+ - Theo Lemay, 7842F - theol0403
 
-Ryan Benasutti, WPI - Octogonapus
+ - Ryan Benasutti, WPI - Octogonapus
 
-Alex Brooke, PROS - hotelcalifornia
+ - Alex Brooke, PROS - hotelcalifornia
 
-Nick Mertin, QUEEN - nickmertin
+ - Nick Mertin, QUEEN - nickmertin
 
-Dysproh, 2158A - dysproh
+ - Dysproh, 2158A - dysproh
 
-Benjamin Gubler - nebrelbug
+ - Benjamin Gubler - nebrelbug
 
-David Jones - jonesde
+ - David Jones - jonesde
