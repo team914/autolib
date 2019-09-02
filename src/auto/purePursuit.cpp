@@ -1,13 +1,21 @@
+/*
+ * @author D Michael Jones, 914M - acetousk
+ * 
+ * The ideas portrayed in this code are mainly from the following 
+ * documents:
+ *      Pure Pursuit            : https://github.com/team914/autolib-pdfs/blob/master/pure-pursuit.pdf
+ *      Adaptive Pure Pursuit   : https://github.com/team914/autolib-pdfs/blob/master/adaptive-pure-pursuit.pdf
+ *      Path Tracking           : https://github.com/team914/autolib-pdfs/blob/master/path-tracking.pdf
+ *      PiLons Position Tracking: https://github.com/team914/autolib-pdfs/blob/master/pilons-position-tracking.pdf
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 #include "autolib/auto/purePursuit.hpp"
 
 namespace autolib{
 
-/**
- * PurePursuit::PurePursuit 
- * 
- * @param  {InternalPath} iipath               : 
- * @param  {okapi::QLength} ilookaheadDistance : 
- */
 PurePursuit::PurePursuit( const std::vector<IndexedDistancePosePath> &ipaths, const okapi::QLength &ilookaheadDistance ): paths(ipaths){
     #ifdef DEBUG
         printf( "\tInheriting Points from Path\n" );
@@ -20,14 +28,6 @@ PurePursuitTriangle PurePursuit::run( const okapi::OdomState &ipose, const std::
     return run( Pose{ pose.x, pose.y, pose.theta }, iid );
 }
 
-/**
- * PurePursuit 
- * 
- * @param  {okapi::QLength} ix    : 
- * @param  {okapi::QLength} iy    : 
- * @param  {okapi::QAngle} itheta : 
- * @return {Curvature}            : 
- */
 PurePursuitTriangle PurePursuit::run( const Pose &ipose, const std::string &iid ){
     if( !path.path.empty() ){
         if( path.id != iid )
@@ -121,7 +121,6 @@ PurePursuitTriangle PurePursuit::findPurePursuitTriangle(){
         l,
         l / ( 2 * localGoalPose.x )
     };
-
 
     triangles.emplace_back(
         triangle

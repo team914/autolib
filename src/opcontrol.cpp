@@ -15,18 +15,11 @@ void opcontrol() {
 
   controller = ChassisControllerBuilder()
   	.withMotors({1, -2}, {-6, 7})
-	.withSensors( IntegratedEncoder{ 1 }, IntegratedEncoder{ 6, true } )
-	//.withGains()
-	//.withDerivativeFilters()
-	.withOdometry( StateMode::FRAME_TRANSFORMATION )
-	.withGearset( AbstractMotor::GearsetRatioPair{ AbstractMotor::gearset::green, 5/3 } )
-	.withDimensions( {{3.75_in, 15_in}, 900} )
-	//.withMaxVelocity()
-	//.withMaxVoltage()
-	//.withChassisControllerTimeUtilFactory()
-	//.withOdometryTimeUtilFactory()
-	//.withLogger()
-	.buildOdometry();
+  	.withSensors( IntegratedEncoder{ 1 }, IntegratedEncoder{ 6, true } )
+	  .withOdometry( StateMode::FRAME_TRANSFORMATION )
+  	.withGearset( AbstractMotor::GearsetRatioPair{ AbstractMotor::gearset::green, 5/3 } )
+	  .withDimensions( {{3.75_in, 15_in}, 900} )
+	  .buildOdometry();
 	
   model = controller->getModel();
 
@@ -42,8 +35,6 @@ void opcontrol() {
   autolib::PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
   auto state = controller->getState();
   PurePursuitTriangle triangle = purePursuit.run( state, std::string("test") );
-//*/
-
 
   //  pros::Task printSensorValsTask(printSensorVals);
 

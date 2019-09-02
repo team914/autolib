@@ -1,3 +1,17 @@
+/*
+ * @author D Michael Jones, 914M - acetousk
+ * @author Ryan Benasutti, WPI - Octogonapus
+ * 
+ * The ideas portrayed in this code are mainly from the following 
+ * documents:
+ *      Pure Pursuit: https://github.com/team914/autolib-pdfs/blob/master/pure-pursuit.pdf
+ *      Pathfinder  : https://github.com/JacisNonsense/Pathfinder/issues
+ *      Desmos      : https://www.desmos.com/calculator/bulcgjwydy
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 #include "autolib/auto/pathGenerator.hpp"
 #include <initializer_list>
 #include <vector>
@@ -15,6 +29,11 @@ void PathGenerator::generatePath(const std::initializer_list<Pose> &iwaypoints, 
     generatePath( iwaypoints, iid, limits );
 }
 
+/**
+ * This code was taken from OkapiLib most credit regarding this code goes to the authors of the file linked
+ * below:
+ *      https://github.com/OkapiLib/OkapiLib/blob/f0da55095b128fdfed18fab68c232569e2a69d06/src/api/control/async/asyncMotionProfileController.cpp#L67
+ */
 void PathGenerator::generatePath(   const std::initializer_list<Pose> &iwaypoints,
                                     const std::string &iid,
                                     const okapi::PathfinderLimits &ilimits ){
@@ -104,7 +123,7 @@ void PathGenerator::generatePath(   const std::initializer_list<Pose> &iwaypoint
 }
 
 void PathGenerator::showPath(){
-
+    //I'm accepting PRs ;)
 }
 
 std::vector<IndexedDistancePosePath> &PathGenerator::getPaths(){
