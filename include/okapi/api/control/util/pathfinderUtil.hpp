@@ -1,4 +1,4 @@
-/**
+/*
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,7 +11,7 @@
 #include "okapi/api/units/QLength.hpp"
 
 namespace okapi {
-struct Point {
+struct PathfinderPoint {
   QLength x;    // X coordinate relative to the start of the movement
   QLength y;    // Y coordinate relative to the start of the movement
   QAngle theta; // Exit angle relative to the start of the movement

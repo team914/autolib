@@ -15,9 +15,9 @@ class PathGenerator{
     public:
     PathGenerator( const okapi::PathfinderLimits &ilimits );
 
-    void generatePath(const std::initializer_list<okapi::Point> &iwaypoints, const std::string &iid);
+    void generatePath(const std::initializer_list<Pose> &iwaypoints, const std::string &iid);
 
-    void generatePath(  const std::initializer_list<okapi::Point> &iwaypoints, 
+    void generatePath(  const std::initializer_list<Pose> &iwaypoints, 
                         const std::string &iid,
                         const okapi::PathfinderLimits &ilimits);
 

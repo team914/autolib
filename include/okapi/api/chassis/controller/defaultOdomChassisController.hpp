@@ -1,4 +1,4 @@
-/**
+/*
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -25,12 +25,10 @@ class DefaultOdomChassisController : public OdomChassisController {
    * a specific angle, relative to its starting position.
    *
    * @param itimeUtil The TimeUtil.
-   * @param imodel chassis model to use
-   * @param iodometry The odometry.
-   * @param ileftController left side controller
-   * @param irightController right side controller
-   * @param igearset The motor gearset.
-   * @param iscales The chassis scales.
+   * @param iodometry The odometry to read state estimates from.
+   * @param icontroller The chassis controller to delegate to.
+   * @param imode The new default StateMode used to interpret target points and query the Odometry
+   * state.
    * @param imoveThreshold minimum length movement (smaller movements will be skipped)
    * @param iturnThreshold minimum angle turn (smaller turns will be skipped)
    * @param ilogger The logger this instance will log to.
@@ -38,8 +36,9 @@ class DefaultOdomChassisController : public OdomChassisController {
   DefaultOdomChassisController(const TimeUtil &itimeUtil,
                                std::unique_ptr<Odometry> iodometry,
                                std::shared_ptr<ChassisController> icontroller,
-                               QLength imoveThreshold = 10_mm,
-                               QAngle iturnThreshold = 1_deg,
+                               const StateMode &imode = StateMode::FRAME_TRANSFORMATION,
+                               QLength imoveThreshold = 0_mm,
+                               QAngle iturnThreshold = 0_deg,
                                std::shared_ptr<Logger> ilogger = Logger::getDefaultLogger());
 
   DefaultOdomChassisController(const DefaultOdomChassisController &) = delete;
@@ -50,48 +49,111 @@ class DefaultOdomChassisController : public OdomChassisController {
   /**
    * Drives the robot straight to a point in the odom frame.
    *
-   * @param ix x coordinate
-   * @param iy y coordinate
-   * @param ibackwards whether to drive to the target point backwards
-   * @param ioffset offset from target point in the direction pointing towards the robot
+   * @param ipoint The target point to navigate to.
+   * @param ibackwards Whether to drive to the target point backwards.
+   * @param ioffset An offset from the target point in the direction pointing towards the robot. The
+   * robot will stop this far away from the target point.
    */
-  void driveToPoint(const QLength &ix,
-                    const QLength &iy,
+  void driveToPoint(const Point &ipoint,
                     bool ibackwards = false,
                     const QLength &ioffset = 0_mm) override;
 
   /**
-   * Turns the robot to face an angle in the odom frame.
+   * Turns the robot to face a point in the odom frame.
    *
-   * @param iangle angle to turn to
+   * @param ipoint The target point to turn to face.
    */
-  void turnToAngle(const QAngle &iangle) override;
-
-  void moveDistance(QLength itarget) override;
-  void moveDistance(double itarget) override;
-  void moveDistanceAsync(QLength itarget) override;
-  void moveDistanceAsync(double itarget) override;
-  void turnAngle(QAngle idegTarget) override;
-  void turnAngle(double idegTarget) override;
-  void turnAngleAsync(QAngle idegTarget) override;
-  void turnAngleAsync(double idegTarget) override;
-  void setTurnsMirrored(bool ishouldMirror) override;
-  void waitUntilSettled() override;
-  void stop() override;
-  ChassisScales getChassisScales() const override;
-  AbstractMotor::GearsetRatioPair getGearsetRatioPair() const override;
-  std::shared_ptr<ChassisModel> getModel() override;
-  ChassisModel &model() override;
+  void turnToPoint(const Point &ipoint) override;
 
   /**
-   * @return The internal chassis controller.
+   * @return The internal ChassisController.
    */
   std::shared_ptr<ChassisController> getChassisController();
 
   /**
-   * @return The internal chassis controller.
+   * @return The internal ChassisController.
    */
   ChassisController &chassisController();
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void turnToAngle(const QAngle &iangle) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void moveDistance(QLength itarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void moveDistance(double itarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void moveDistanceAsync(QLength itarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void moveDistanceAsync(double itarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void turnAngle(QAngle idegTarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void turnAngle(double idegTarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void turnAngleAsync(QAngle idegTarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void turnAngleAsync(double idegTarget) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void setTurnsMirrored(bool ishouldMirror) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void waitUntilSettled() override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  void stop() override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  ChassisScales getChassisScales() const override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  AbstractMotor::GearsetRatioPair getGearsetRatioPair() const override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  std::shared_ptr<ChassisModel> getModel() override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  ChassisModel &model() override;
 
   protected:
   std::shared_ptr<Logger> logger;

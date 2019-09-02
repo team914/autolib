@@ -11,11 +11,11 @@ PathGenerator::PathGenerator( const okapi::PathfinderLimits &ilimits ){
     logger = ilogger;
 }
 
-void PathGenerator::generatePath(const std::initializer_list<okapi::Point> &iwaypoints, const std::string &iid){
+void PathGenerator::generatePath(const std::initializer_list<Pose> &iwaypoints, const std::string &iid){
     generatePath( iwaypoints, iid, limits );
 }
 
-void PathGenerator::generatePath(   const std::initializer_list<okapi::Point> &iwaypoints,
+void PathGenerator::generatePath(   const std::initializer_list<Pose> &iwaypoints,
                                     const std::string &iid,
                                     const okapi::PathfinderLimits &ilimits ){
     if (iwaypoints.size() == 0) {
@@ -29,7 +29,7 @@ void PathGenerator::generatePath(   const std::initializer_list<okapi::Point> &i
     points.reserve(iwaypoints.size());
     for (auto &point : iwaypoints) {
         points.push_back(
-        Waypoint{point.x.convert(okapi::meter), point.y.convert(meter), point.theta.convert(radian)});
+        Waypoint{point.x.convert(okapi::meter), point.y.convert(meter), point.yaw.convert(radian)});
     }
 
 //    LOG_INFO(std::string("AsyncMotionProfileController: Preparing trajectory"));

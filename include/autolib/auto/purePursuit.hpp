@@ -1,12 +1,12 @@
 #pragma once
 #include "autolib/util/messages.hpp"
 #include "autolib/auto/pathGenerator.hpp"
-#include "autolib/auto/purePursuitMath.hpp"
 #include "okapi/api/units/QLength.hpp"
 #include "okapi/api/units/RQuantity.hpp"
-#include <memory>
-#include <vector>
 #include <cmath>
+#include <memory>
+#include <utility>
+#include <vector>
 //*
 
 #define DEBUG
@@ -41,6 +41,7 @@ class PurePursuit {
      * @return {Curvature}            :
      *  example: ask me
      */
+    PurePursuitTriangle run( const okapi::OdomState &ipose, const std::string &iid );
     PurePursuitTriangle run( const Pose &ipose, const std::string &iid );
 
     protected:
@@ -61,7 +62,7 @@ class PurePursuit {
 
     void findGoalPose();
     PurePursuitTriangle findPurePursuitTriangle();
-
+ 
     bool isPoseWithinCircle( const InternalPose &point, const InternalPose &centerPose, const double &lookaheadDistance );
 
     double findLowestValue( const std::vector<double> &list );
