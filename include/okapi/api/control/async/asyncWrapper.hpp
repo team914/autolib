@@ -1,4 +1,4 @@
-/**
+/*
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -24,13 +24,13 @@ template <typename Input, typename Output>
 class AsyncWrapper : virtual public AsyncController<Input, Output> {
   public:
   /**
-   * A wrapper class that transforms an IterativeController into an AsyncController by running it
-   * in another task. The input controller will act like an AsyncController.
+   * A wrapper class that transforms an `IterativeController` into an `AsyncController` by running
+   * it in another task. The input controller will act like an `AsyncController`.
    *
-   * @param iinput controller input, passed to the IterativeController
-   * @param ioutput controller output, written to from the IterativeController
+   * @param iinput controller input, passed to the `IterativeController`
+   * @param ioutput controller output, written to from the `IterativeController`
    * @param icontroller the controller to use
-   * @param irateSupplier used for rates used in the main loop and in waitUntilSettled
+   * @param irateSupplier used for rates used in the main loop and in `waitUntilSettled`
    * @param iratio Any external gear ratio.
    * @param ilogger The logger this instance will log to.
    */
@@ -39,7 +39,7 @@ class AsyncWrapper : virtual public AsyncController<Input, Output> {
                std::unique_ptr<IterativeController<Input, Output>> icontroller,
                const Supplier<std::unique_ptr<AbstractRate>> &irateSupplier,
                const double iratio = 1,
-               const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>())
+               const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger())
     : logger(ilogger),
       rateSupplier(irateSupplier),
       input(iinput),
@@ -165,7 +165,7 @@ class AsyncWrapper : virtual public AsyncController<Input, Output> {
    * keeping any user-configured information.
    */
   void reset() override {
-    LOG_INFO_S("AsyncWrapper: Reset");
+    LOG_INFO(std::string("AsyncWrapper: Reset"));
     controller->reset();
     hasFirstTarget = false;
   }
@@ -206,14 +206,14 @@ class AsyncWrapper : virtual public AsyncController<Input, Output> {
    * implementation-dependent.
    */
   void waitUntilSettled() override {
-    LOG_INFO_S("AsyncWrapper: Waiting to settle");
+    LOG_INFO(std::string("AsyncWrapper: Waiting to settle"));
 
     auto rate = rateSupplier.get();
     while (!isSettled()) {
       rate->delayUntil(motorUpdateRate);
     }
 
-    LOG_INFO_S("AsyncWrapper: Done waiting to settle");
+    LOG_INFO(std::string("AsyncWrapper: Done waiting to settle"));
   }
 
   /**

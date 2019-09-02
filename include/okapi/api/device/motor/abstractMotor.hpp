@@ -1,4 +1,4 @@
-/**
+/*
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -46,11 +46,11 @@ class AbstractMotor : public ControllerOutput<double> {
     /**
      * A simple structure representing the full ratio between motor and wheel.
      *
-     * The ratio is motor rotation : wheel rotation. So for example, if one motor rotation
-     * corresponds to two wheel rotations, the ratio is 1.0/2.0.
+     * The ratio is `motor rotation : wheel rotation`, e.x., if one motor rotation
+     * corresponds to two wheel rotations, the ratio is `1.0/2.0`.
      *
-     * @param igearset the motor's gearset
-     * @param iratio the ratio of motor rotation to wheel rotation
+     * @param igearset The gearset in the motor.
+     * @param iratio The ratio of motor rotation to wheel rotation.
      */
     GearsetRatioPair(const gearset igearset, const double iratio = 1)
       : internalGearset(igearset), ratio(iratio) {
@@ -520,72 +520,6 @@ class AbstractMotor : public ControllerOutput<double> {
    * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
    */
   virtual std::int32_t setVoltageLimit(std::int32_t ilimit) = 0;
-
-  /**
-   * Sets new PID constants.
-   *
-   * @param ikF the feed-forward constant
-   * @param ikP the proportional constant
-   * @param ikI the integral constant
-   * @param ikD the derivative constant
-   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
-   */
-  virtual std::int32_t setPosPID(double ikF, double ikP, double ikI, double ikD) = 0;
-
-  /**
-   * Sets new PID constants.
-   *
-   * @param ikF the feed-forward constant
-   * @param ikP the proportional constant
-   * @param ikI the integral constant
-   * @param ikD the derivative constant
-   * @param ifilter a constant used for filtering the profile acceleration
-   * @param ilimit the integral limit
-   * @param ithreshold the threshold for determining if a position movement has reached its goal
-   * @param iloopSpeed the rate at which the PID computation is run (in ms)
-   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
-   */
-  virtual std::int32_t setPosPIDFull(double ikF,
-                                     double ikP,
-                                     double ikI,
-                                     double ikD,
-                                     double ifilter,
-                                     double ilimit,
-                                     double ithreshold,
-                                     double iloopSpeed) = 0;
-
-  /**
-   * Sets new PID constants.
-   *
-   * @param ikF the feed-forward constant
-   * @param ikP the proportional constant
-   * @param ikI the integral constant
-   * @param ikD the derivative constant
-   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
-   */
-  virtual std::int32_t setVelPID(double ikF, double ikP, double ikI, double ikD) = 0;
-
-  /**
-   * Sets new PID constants.
-   *
-   * @param ikF the feed-forward constant
-   * @param ikP the proportional constant
-   * @param ikI the integral constant
-   * @param ikD the derivative constant
-   * @param ifilter a constant used for filtering the profile acceleration
-   * @param ilimit the integral limit
-   * @param ithreshold the threshold for determining if a position movement has reached its goal
-   * @param iloopSpeed the rate at which the PID computation is run (in ms)
-   * @return 1 if the operation was successful or PROS_ERR if the operation failed, setting errno.
-   */
-  virtual std::int32_t setVelPIDFull(double ikF,
-                                     double ikP,
-                                     double ikI,
-                                     double ikD,
-                                     double ifilter,
-                                     double ilimit,
-                                     double ithreshold,
-                                     double iloopSpeed) = 0;
 
   /**
    * Returns the encoder associated with this motor.

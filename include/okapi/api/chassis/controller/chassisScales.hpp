@@ -1,4 +1,4 @@
-/**
+/*
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -39,7 +39,7 @@ class ChassisScales {
    *                     |         +       v       +  |
    *                     |        ++---------------++ |
    *                     |        |                 | v
-   *       Wheel Track   |        |                 |
+   *       Wheel track   |        |                 |
    *                     |        |        x        |+|  <-- Middle wheel
    *                     |        |                 |
    *                     |        |                 |
@@ -55,7 +55,7 @@ class ChassisScales {
    */
   ChassisScales(const std::initializer_list<QLength> &idimensions,
                 std::int32_t itpr,
-                const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>());
+                const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger());
 
   /**
    * The scales a Chassis Controller needs to do all of its closed-loop control. First index is
@@ -70,7 +70,7 @@ class ChassisScales {
    */
   ChassisScales(const std::initializer_list<double> &iscales,
                 std::int32_t itpr,
-                const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>());
+                const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger());
 
   QLength wheelDiameter;
   QLength wheelTrack;
@@ -82,6 +82,6 @@ class ChassisScales {
   std::int32_t tpr;
 
   protected:
-  void validateInput(std::size_t inputSize, const std::shared_ptr<Logger> &logger);
+  void validateInputSize(std::size_t inputSize, const std::shared_ptr<Logger> &logger);
 };
 } // namespace okapi

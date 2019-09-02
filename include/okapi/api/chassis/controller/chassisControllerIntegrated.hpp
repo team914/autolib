@@ -1,4 +1,4 @@
-/**
+/*
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,30 +13,40 @@
 #include "okapi/api/util/timeUtil.hpp"
 
 namespace okapi {
-class ChassisControllerIntegrated : public virtual ChassisController {
+class ChassisControllerIntegrated : public ChassisController {
   public:
   /**
-   * ChassisController using the V5 motor's integrated control. Puts the motors into degree units.
-   * Throws a std::invalid_argument exception if the gear ratio is zero.
+   * ChassisController using the V5 motor's integrated control. Puts the motors into encoder count
+   * units. Throws a `std::invalid_argument` exception if the gear ratio is zero. The initial
+   * model's max velocity will be propagated to the controllers.
    *
-   * @param imodelArgs ChassisModelArgs
-   * @param ileftControllerArgs left side controller params
-   * @param irightControllerArgs right side controller params
-   * @param igearset motor internal gearset and gear ratio
-   * @param iscales see ChassisScales docs
+   * @param itimeUtil The TimeUtil.
+   * @param imodel The ChassisModel used to read from sensors/write to motors.
+   * @param ileftController The controller used for the left side motors.
+   * @param irightController The controller used for the right side motors.
+   * @param igearset The internal gearset and external ratio used on the drive motors.
+   * @param iscales The ChassisScales.
    * @param ilogger The logger this instance will log to.
    */
   ChassisControllerIntegrated(
     const TimeUtil &itimeUtil,
-    const std::shared_ptr<ChassisModel> &imodel,
+    std::shared_ptr<ChassisModel> imodel,
     std::unique_ptr<AsyncPosIntegratedController> ileftController,
     std::unique_ptr<AsyncPosIntegratedController> irightController,
-    AbstractMotor::GearsetRatioPair igearset = AbstractMotor::gearset::green,
+    const AbstractMotor::GearsetRatioPair &igearset = AbstractMotor::gearset::green,
     const ChassisScales &iscales = ChassisScales({1, 1}, imev5GreenTPR),
-    const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>());
+    std::shared_ptr<Logger> ilogger = Logger::getDefaultLogger());
 
   /**
    * Drives the robot straight for a distance (using closed-loop control).
+   *
+   * ```cpp
+   * // Drive forward 6 inches
+   * chassis->moveDistance(6_in);
+   *
+   * // Drive backward 0.2 meters
+   * chassis->moveDistance(-0.2_m);
+   * ```
    *
    * @param itarget distance to travel
    */
@@ -44,6 +54,11 @@ class ChassisControllerIntegrated : public virtual ChassisController {
 
   /**
    * Drives the robot straight for a distance (using closed-loop control).
+   *
+   * ```cpp
+   * // Drive forward by spinning the motors 400 degrees
+   * chassis->moveDistance(400);
+   * ```
    *
    * @param itarget distance to travel in motor degrees
    */
@@ -66,12 +81,22 @@ class ChassisControllerIntegrated : public virtual ChassisController {
   /**
    * Turns the robot clockwise in place (using closed-loop control).
    *
+   * ```cpp
+   * // Turn 90 degrees clockwise
+   * chassis->turnAngle(90_deg);
+   * ```
+   *
    * @param idegTarget angle to turn for
    */
   void turnAngle(QAngle idegTarget) override;
 
   /**
    * Turns the robot clockwise in place (using closed-loop control).
+   *
+   * ```cpp
+   * // Turn clockwise by spinning the motors 200 degrees
+   * chassis->turnAngle(200);
+   * ```
    *
    * @param idegTarget angle to turn for in motor degrees
    */
@@ -92,21 +117,21 @@ class ChassisControllerIntegrated : public virtual ChassisController {
   void turnAngleAsync(double idegTarget) override;
 
   /**
+   * Sets whether turns should be mirrored.
+   *
+   * @param ishouldMirror whether turns should be mirrored
+   */
+  void setTurnsMirrored(bool ishouldMirror) override;
+
+  /**
    * Delays until the currently executing movement completes.
    */
   void waitUntilSettled() override;
 
   /**
-   * Stop the robot (set all the motors to 0).
+   * Interrupts the current movement to stop the robot.
    */
   void stop() override;
-
-  /**
-   * Sets a new maximum velocity in RPM [0-600].
-   *
-   * @param imaxVelocity the new maximum velocity
-   */
-  void setMaxVelocity(double imaxVelocity) override;
 
   /**
    * Get the ChassisScales.
@@ -118,8 +143,34 @@ class ChassisControllerIntegrated : public virtual ChassisController {
    */
   AbstractMotor::GearsetRatioPair getGearsetRatioPair() const override;
 
+  /**
+   * @return The internal ChassisModel.
+   */
+  std::shared_ptr<ChassisModel> getModel() override;
+
+  /**
+   * @return The internal ChassisModel.
+   */
+  ChassisModel &model() override;
+
+  /**
+   * Sets a new maximum velocity in RPM [0-600].
+   *
+   * @param imaxVelocity the new maximum velocity
+   */
+  virtual void setMaxVelocity(double imaxVelocity);
+
+  /**
+   * Returns the maximum velocity in RPM [0-600].
+   *
+   * @return The maximum velocity in RPM [0-600].
+   */
+  virtual double getMaxVelocity() const;
+
   protected:
   std::shared_ptr<Logger> logger;
+  bool normalTurns{true};
+  std::shared_ptr<ChassisModel> chassisModel;
   TimeUtil timeUtil;
   std::unique_ptr<AsyncPosIntegratedController> leftController;
   std::unique_ptr<AsyncPosIntegratedController> rightController;

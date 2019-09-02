@@ -1,40 +1,57 @@
 #include "main.h"
 #include "okapi/api.hpp"
-#include "autolib/main.hpp"
-
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
+#include "okapi/pathfinder/include/pathfinder.h"
+#include "autolib/api.hpp"
 
 using namespace autolib;
 
+std::shared_ptr<OdomChassisController> controller;
+std::shared_ptr<ChassisModel> model;
+
 void opcontrol() {
 
-	PathGenerator pathGenerator(
-	{
-		autolib::Point{ -1_ft, 1_ft },
-		autolib::Point{ 0_ft, 2_ft },
-		autolib::Point{ 1_ft, 1_ft },
-		autolib::Point( 1_in, 1_in )
-	}, 1_in );
+  Logger::setDefaultLogger(
+    std::make_shared<Logger>(std::make_unique<Timer>(), "/ser/sout", Logger::LogLevel::debug));
 
-	pathGenerator.generatePath( PathGenerator::PathType::HermiteSpline );
+  controller = ChassisControllerBuilder()
+  	.withMotors({1, -2}, {-6, 7})
+	.withSensors( IntegratedEncoder{ 1 }, IntegratedEncoder{ 6, true } )
+	//.withGains()
+	//.withDerivativeFilters()
+	.withOdometry( StateMode::FRAME_TRANSFORMATION )
+	.withGearset( AbstractMotor::GearsetRatioPair{ AbstractMotor::gearset::green, 5/3 } )
+	.withDimensions( {{3.75_in, 15_in}, 900} )
+	//.withMaxVelocity()
+	//.withMaxVoltage()
+	//.withChassisControllerTimeUtilFactory()
+	//.withOdometryTimeUtilFactory()
+	//.withLogger()
+	.buildOdometry();
+	
+  model = controller->getModel();
 
-	PurePursuit purePursuit( pathGenerator.getPath(), 4_in );
+  PathGenerator pathGenerator( {1.0, 2.0, 4.0} );
+  pathGenerator.generatePath( 
+    { 
+		Pose{ 1_ft, 1_ft, 270_deg }, 
+		Pose{ 1_ft, 0_ft, 90_deg } 
+	}, 
+    std::string("test")
+  );
 
-	purePursuit.getGoalCurvature( 0_ft, 0_in, 0_rad );
+  autolib::PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
+  auto state = controller->getState();
+  PurePursuitTriangle triangle = purePursuit.run( state, std::string("test") );
+//*/
 
-	while (true) {
-		
-	}
+
+  //  pros::Task printSensorValsTask(printSensorVals);
+
+  //  drive->moveDistance(6_in);
+  //  drive->turnAngle(90_deg);
+  //  drive->moveDistance(6_in);
+
+  while (true) {
+    pros::delay(50);
+  }
 }

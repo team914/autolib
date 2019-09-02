@@ -1,4 +1,4 @@
-/**
+/*
  * @author Ryan Benasutti, WPI
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,7 +20,7 @@ template <typename Input, typename Output> class ControllerRunnerFactory {
    * @return
    */
   static ControllerRunner<Input, Output>
-  create(const std::shared_ptr<Logger> &ilogger = std::make_shared<Logger>()) {
+  create(const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger()) {
     return ControllerRunner<Input, Output>(TimeUtilFactory::create(), ilogger);
   }
 };
