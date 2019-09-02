@@ -16,17 +16,17 @@ struct Pose{
     okapi::QAngle yaw;
 };
 
+struct InternalPose{
+    double x;
+    double y;
+    double yaw;
+};
+
 struct PurePursuitTriangle{
     InternalPose currentPose;
     InternalPose localGoalPose;
     double l;
     double r;
-};
-
-struct InternalPose{
-    double x;
-    double y;
-    double yaw;
 };
 
 struct InternalPoseIndexed{
