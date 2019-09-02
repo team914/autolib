@@ -39,6 +39,15 @@ PurePursuitTriangle PurePursuit::run( const Pose &ipose, const std::string &iid 
     return findPurePursuitTriangle();
 }
 
+void PurePursuit::updateChassis( const double &reqVelocity, const PurePursuitTriangle &itriangle, const std::shared_ptr<OdomChassisController> &controller ){
+    PurePursuitTriangle triangle = itriangle;
+    double curvature_scales = triangle.localGoalPose.yaw * (controller->getChassisScales().wheelTrack.convert(meter))/2;
+    double left = reqVelocity * ( 2 + curvature_scales )/2;
+    double right = reqVelocity * ( 2 - curvature_scales )/2;
+    controller->getModel()->left( left );
+    controller->getModel()->right( right );
+}
+
 void PurePursuit::findPath( const std::string &iid ){
     for( const auto &ipath: paths ){
         if( ipath.id == iid ){

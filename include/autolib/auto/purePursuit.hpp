@@ -53,6 +53,20 @@ class PurePursuit {
     PurePursuitTriangle run( const okapi::OdomState &ipose, const std::string &iid );
     PurePursuitTriangle run( const Pose &ipose, const std::string &iid );
 
+    /**
+     * This should be used in a loop during your autonomous. It is static, but is meant for the PurePursuit class.
+     * It is recommended to use motion profiling for the first parameter. The second parameter should be from your
+     * run method from the PurePursuit class. The third method should be from you okapi's ChassisControllerBuilder.
+     * 
+     * Note: Using this method is optional. You can and probably should create your own controller to use the triangle
+     * motor output This is only meant for users of okapi >= v4.0.0.
+     * 
+     * @param  {double} reqVelocity                                : 
+     * @param  {PurePursuitTriangle} triangle                      : 
+     * @param  {std::shared_ptr<OdomChassisController>} controller : 
+     */
+    static void updateChassis( const double &reqVelocity, const PurePursuitTriangle &triangle, const std::shared_ptr<OdomChassisController> &controller );
+
     protected:
     const std::vector<IndexedDistancePosePath> paths;
     IndexedDistancePosePath path;
