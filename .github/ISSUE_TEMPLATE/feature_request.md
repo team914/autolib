@@ -7,24 +7,13 @@ assignees: acetousk
 
 ---
 
-### Description
+**Please Describe The Problem To Be Solved**
+(Replace This Text: Please present a concise description of the problem to be addressed by this feature request. Please be clear what parts of the problem are considered to be in-scope and out-of-scope.)
 
-[Description of the issue]
+**(Optional): Suggest A Solution**
+(Replace This Text: A concise description of your preferred solution. Things to address include:
+* Details of the technical implementation
+* Tradeoffs made in design decisions
+* Caveats and considerations for the future
 
-### Steps to Reproduce
-
-1. [First Step]
-2. [Second Step]
-3. [and so on...]
-
-**Expected behavior:** [What you expect to happen]
-
-**Actual behavior:** [What actually happens]
-
-### Versions
-
-What version of OkapiLib and PROS are you on? Run `pros conduct info-project` in your terminal.
-
-### Additional Information
-
-Any additional information, including snippets of your code, required to reproduce the issue.
+If there are multiple solutions, please present each one separately. Save comparisons for the very end.)
