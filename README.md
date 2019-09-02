@@ -1,9 +1,6 @@
 # autolib
 AutoLib is a Pros C++ Library based off of OkapiLib for Advanced Vex Autonomous Programming
 
-<<<<<<< HEAD
-**Warning: This branch is depricated and is only for reference.**
-=======
 **Summary** 
 
 AutoLib is a Pros C++ Library for Advanced Vex Autonomous Programming
@@ -102,4 +99,3 @@ If you would like to join the mailing list, please email acetousk@gmail.com that
 ## License
 
 AutoLib is licensed under the Mozilla Public License 2.0.
->>>>>>> master
