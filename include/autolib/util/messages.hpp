@@ -46,19 +46,6 @@ struct Curvature{
     double distance;
 };
 
-<<<<<<< HEAD
-
-
-//This is depricated and is going to be deleted in version 1.0.0
-
-=======
-struct Pose{
-    okapi::QLength x;
-    okapi::QLength y;
-    okapi::QAngle yaw;
-};
->>>>>>> master
-
 //These are only meant for internal uses. Do not use these unless you are an expert.
 struct InternalPose{
     double x;
