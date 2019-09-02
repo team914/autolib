@@ -38,53 +38,11 @@ For a good pull request, we ask you provide the following:
 
 ## Implimentation
 
-### Dependancies
- - OkapiLib's branch [feature/v4.0.0](https://github.com/OkapiLib/OkapiLib/tree/feature/v4.0.0)
-
- *Note: Make sure that you install okapi's **feature/v4.0.0** branch rather than some other branch.*
-
 ### Robot
 We suggest that you use a robot similair to the one described in the 5225A Pilons Position Tracking [Document](https://github.com/team914/autolib-pdfs/blob/master/pilons-position-tracking.pdf), however we support basically any configuration of a Skid Steer or X Drive.
 
 *Note: Before you begin to use AutoLib we suggest that you [read up](https://github.com/team914/autolib/wiki/Basic-Autonomous-Tiers-Theory) on the algorithms that we use.*
 
-### Code
-```cpp
-//This will construct the PathGenerator class
-PathGenerator pathGenerator(
-{
-  //The first point is, by default, automatically 0, 0
-  autolib::Point{ -1_ft, 1_ft }, //This generates a Point at ( -1 foot, 1 foot )
-  autolib::Point{ 0_ft, 2_ft },  //Then ( 0 feet, 2 feet )
-  autolib::Point{ 1_ft, 1_ft },  //Then ( 0 feet, 2 feet )
-  autolib::Point( 1_in, 1_in )   //Then ( 1 inch, 2 inches )
-  //You can send any number of points along your path.
-}, .1_in /**This is the distance between each point after you generate a path. 
-          * The more points the better, however more points will take longer 
-          * to setup in pre auton.
-          */
-);
-
-/**This will generate a series of points based off an algorithm. 
- * Currently only HermiteSpline is supported. To figure out how this algoritm works, 
- * we suggest you check this desmos graph out. https://www.desmos.com/calculator/h2jshqzjdo
- */
-pathGenerator.generatePath( PathGenerator::PathType::HermiteSpline );
-
-//This will construct the PurePursuit class
-PurePursuit purePursuit( 
-  pathGenerator.getPath(), // this will send the path from the PathGenerator to PurePursuit
-  4_in                     // this is the Pure Pursuit Algorithm's lookaheadDistance
-);
-
-/**This should be run in a loop during auton. This uses okapi's odometry feature to 
- * identify the current global x, y, and yaw of the robot. This data is extremely vital 
- * to the Pure Pursuit Algorithm. If this data is signifigantly off the actual position, 
- * then it can and probaly *will* mess up your auton.
- */
-purePursuit.getGoalCurvature( 0_ft, 0_in, 0_rad );
-
-```
 ## Contact
 
 To contact us:
