@@ -13,8 +13,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 #include "autolib/auto/pathGenerator.hpp"
+#include "okapi/api.hpp"
 #include <initializer_list>
 #include <vector>
+
+using namespace okapi;
 
 namespace autolib{
 
