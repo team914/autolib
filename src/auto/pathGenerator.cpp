@@ -19,10 +19,12 @@
 namespace autolib{
 
 PathGenerator::PathGenerator( const okapi::PathfinderLimits &ilimits ){
+    std::cout << "\nPath Generator: Initializ";
     limits = ilimits;
 
     const std::shared_ptr<okapi::Logger> &ilogger = okapi::Logger::getDefaultLogger();
     logger = ilogger;
+    std::cout << "ed\n";
 }
 
 void PathGenerator::generatePath(const std::initializer_list<Pose> &iwaypoints, const std::string &iid){
@@ -37,6 +39,9 @@ void PathGenerator::generatePath(const std::initializer_list<Pose> &iwaypoints, 
 void PathGenerator::generatePath(   const std::initializer_list<Pose> &iwaypoints,
                                     const std::string &iid,
                                     const okapi::PathfinderLimits &ilimits ){
+    std::cout << "Path Generator: Generating Path\n";
+    int time = pros::millis();
+
     if (iwaypoints.size() == 0) {
         // No point in generating a path
 //        LOG_WARN(std::string(
@@ -118,15 +123,19 @@ void PathGenerator::generatePath(   const std::initializer_list<Pose> &iwaypoint
 
     paths.emplace_back( path );
 
+    std::cout << "Path Generator: Done in " << pros::millis() - time << " millis\n";
+
 //    LOG_INFO("AsyncMotionProfileController: Completely done generating path " + ipathId);
 //    LOG_DEBUG("AsyncMotionProfileController: Path length: " + std::to_string(length));    
 }
 
 void PathGenerator::showPath(){
+    std::cout << "Path Generator: Showing Paths\n";
     //I'm accepting PRs ;)
 }
 
 std::vector<IndexedDistancePosePath> &PathGenerator::getPaths(){
+    std::cout << "Path Generator: Getting Paths\n";
     return paths;
 }
 

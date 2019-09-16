@@ -1,6 +1,6 @@
 #include "main.h"
 #include "okapi/api.hpp"
-#include "okapi/pathfinder/include/pathfinder.h"
+#include "odomDebug/odomDebug.hpp"
 #include "autolib/api.hpp"
 
 using namespace autolib;
@@ -28,11 +28,11 @@ void opcontrol() {
     { 
 		Pose{ 1_ft, 1_ft, 270_deg }, 
 		Pose{ 1_ft, 0_ft, 90_deg } 
-	},
+	  },
     std::string("test")
   );
 
-  autolib::PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
+  PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
 
   //  pros::Task printSensorValsTask(printSensorVals);
 
@@ -41,8 +41,7 @@ void opcontrol() {
   //  drive->moveDistance(6_in);
 
   while (true) {
-    auto state = controller->getState();
-    PurePursuit::updateChassis( 50, purePursuit.run( state, std::string("test") ), controller );
+    purePursuit.run( Pose{ 0_ft, 0_ft, 0_deg }, std::string("test"));
 
     pros::delay(50);
   }

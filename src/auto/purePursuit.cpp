@@ -17,10 +17,9 @@
 namespace autolib{
 
 PurePursuit::PurePursuit( const std::vector<IndexedDistancePosePath> &ipaths, const okapi::QLength &ilookaheadDistance ): paths(ipaths){
-    #ifdef DEBUG
-        printf( "\tInheriting Points from Path\n" );
-    #endif
+    std::cout << "\nPure Pursuit: Initializ";
     lookaheadDistance = ilookaheadDistance.convert(meter);
+    std::cout << "ed\n";
 }
 
 PurePursuitTriangle PurePursuit::run( const okapi::OdomState &ipose, const std::string &iid ){
@@ -29,6 +28,7 @@ PurePursuitTriangle PurePursuit::run( const okapi::OdomState &ipose, const std::
 }
 
 PurePursuitTriangle PurePursuit::run( const Pose &ipose, const std::string &iid ){
+    std::cout << "Pure Pursuit: Running\n";
     if( !path.path.empty() ){
         if( path.id != iid )
             findPath( iid );
@@ -40,6 +40,7 @@ PurePursuitTriangle PurePursuit::run( const Pose &ipose, const std::string &iid 
 }
 
 void PurePursuit::updateChassis( const double &reqVelocity, const PurePursuitTriangle &itriangle, const std::shared_ptr<OdomChassisController> &controller ){
+    std::cout << "Pure Pursuit: Updating Chassis\n";
     PurePursuitTriangle triangle = itriangle;
     double curvature_scales = triangle.localGoalPose.yaw * (controller->getChassisScales().wheelTrack.convert(meter))/2;
     double left = reqVelocity * ( 2 + curvature_scales )/2;
@@ -64,7 +65,7 @@ double PurePursuit::findDistanceBetweenPoses( const InternalPose &P1, const Inte
     return std::sqrt( okapi::ipow( P2.x - P1.x, 2 ) + okapi::ipow( P2.y - P1.y, 2 ) );
 }
 
-//bad method
+//bad method?
 void PurePursuit::findNearestPose( const Pose &iipose ){
     InternalPose ipose{ iipose.x.convert(meter), iipose.y.convert(meter), iipose.yaw.convert(radian) };
     if( currentPoses.path.empty() )

@@ -16,14 +16,15 @@
 
 #include "autolib/util/messages.hpp"
 #include "autolib/auto/pathGenerator.hpp"
-#include "okapi/api/units/QLength.hpp"
-#include "okapi/api/units/RQuantity.hpp"
+#include "okapi/api.hpp"
 #include <cmath>
 #include <memory>
 #include <utility>
 #include <vector>
 
 #define DEBUG
+
+using namespace okapi;
 
 namespace autolib{
 
@@ -66,6 +67,19 @@ class PurePursuit {
      * @param  {std::shared_ptr<OdomChassisController>} controller : 
      */
     static void updateChassis( const double &reqVelocity, const PurePursuitTriangle &triangle, const std::shared_ptr<OdomChassisController> &controller );
+
+    static double findDistanceBetweenStateAndPose( const okapi::OdomState &state, const InternalPose &pose2 ){
+        InternalPose pose1{ state.x.convert(meter), state.y.convert(meter), state.theta.convert(radian) };
+        return findDistanceBetweenPoses( pose1, pose2 );
+    }
+
+    InternalPose getLastPoseInPath( const std::string &id ){
+        for( const auto &ipath: paths ){
+            if( ipath.id == id ){
+                return ipath.path.at(ipath.path.size() - 1).pose;
+            }
+        }
+    }
 
     protected:
     const std::vector<IndexedDistancePosePath> paths;
