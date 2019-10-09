@@ -57,7 +57,7 @@ If you would like to join the mailing list, please email acetousk@gmail.com that
  
 ## License
 
-AutoLib is licensed under the Mozilla Public License 2.0.
+AutoLib is licensed under the MIT License.
 
 ## Thank You!
 Huge Thanks to the following. AutoLib wouldn't be AutoLib without these wonderful people.
