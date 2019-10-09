@@ -24,7 +24,7 @@ USE_PACKAGE:=0
 EXCLUDE_COLD_LIBRARIES:= 
 
 # Set this to 1 to add additional rules to compile your project as a PROS library template
-IS_LIBRARY:=0
+IS_LIBRARY:=1
 # TODO: CHANGE THIS!
 LIBNAME:=autolib
 VERSION:=0.9.5
