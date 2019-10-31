@@ -8,12 +8,12 @@
 #pragma once
 
 #include "okapi/api/chassis/model/threeEncoderSkidSteerModel.hpp"
-#include "okapi/api/odometry/odometry.hpp"
+#include "okapi/api/odometry/twoEncoderOdometry.hpp"
 #include "okapi/api/util/timeUtil.hpp"
 #include <functional>
 
 namespace okapi {
-class ThreeEncoderOdometry : public Odometry {
+class ThreeEncoderOdometry : public TwoEncoderOdometry {
   public:
   /**
    * Odometry. Tracks the movement of the robot and estimates its position in coordinates
@@ -27,10 +27,15 @@ class ThreeEncoderOdometry : public Odometry {
    * @param ilogger The logger this instance will log to.
    */
   ThreeEncoderOdometry(const TimeUtil &itimeUtil,
-                       std::shared_ptr<ReadOnlyChassisModel> imodel,
+                       const std::shared_ptr<ReadOnlyChassisModel> &imodel,
                        const ChassisScales &ichassisScales,
                        const QSpeed &iwheelVelDelta = 0.0001_mps,
                        const std::shared_ptr<Logger> &ilogger = Logger::getDefaultLogger());
+
+  /**
+   * @return The internal ChassisModel.
+   */
+  std::shared_ptr<ReadOnlyChassisModel> getModel() override;
 
   protected:
   std::shared_ptr<ReadOnlyChassisModel> model;

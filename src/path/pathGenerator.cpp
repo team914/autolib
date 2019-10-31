@@ -1,8 +1,8 @@
 /*
  * @author D Michael Jones, 914M - acetousk
  * @author Ryan Benasutti, WPI - Octogonapus
- * 
- * The ideas portrayed in this code are mainly from the following 
+ *
+ * The ideas portrayed in this code are mainly from the following
  * documents:
  *      Pure Pursuit: https://github.com/team914/autolib-pdfs/blob/master/pure-pursuit.pdf
  *      Pathfinder  : https://github.com/JacisNonsense/Pathfinder/issues
@@ -12,7 +12,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#include "autolib/auto/pathGenerator.hpp"
+#include "autolib/path/pathGenerator.hpp"
 #include <initializer_list>
 #include <vector>
 
@@ -126,7 +126,7 @@ void PathGenerator::generatePath(   const std::initializer_list<Pose> &iwaypoint
     std::cout << "Path Generator: Done in " << pros::millis() - time << " millis\n";
 
 //    LOG_INFO("AsyncMotionProfileController: Completely done generating path " + ipathId);
-//    LOG_DEBUG("AsyncMotionProfileController: Path length: " + std::to_string(length));    
+//    LOG_DEBUG("AsyncMotionProfileController: Path length: " + std::to_string(length));
 }
 
 void PathGenerator::showPath(){
