@@ -2,9 +2,8 @@
 
 #pragma once
 
-#include "autolib/auto/pathGenerator.hpp"
-#include "autolib/auto/purePursuit.hpp"
+#include "autolib/path/pathGenerator.hpp"
+#include "autolib/path/purePursuit.hpp"
 
 #include "autolib/util/messages.hpp"
 #include "autolib/util/display.hpp"
-

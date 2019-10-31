@@ -24,7 +24,8 @@
  *
  * <a href="annotated.html">OkapiLib Classes</a>
  *
- * Not sure where to go? Take a look at the [Getting Started tutorial](docs/tutorials/walkthrough/gettingStarted.md).
+ * Not sure where to go? Take a look at the
+ * [Getting Started tutorial](docs/tutorials/walkthrough/gettingStarted.md).
  */
 
 #include "okapi/api/chassis/controller/chassisControllerIntegrated.hpp"
@@ -60,7 +61,6 @@
 #include "okapi/impl/control/iterative/iterativeControllerFactory.hpp"
 #include "okapi/impl/control/util/controllerRunnerFactory.hpp"
 #include "okapi/impl/control/util/pidTunerFactory.hpp"
-#include "okapi/impl/control/util/settledUtilFactory.hpp"
 
 #include "okapi/api/odometry/odomMath.hpp"
 #include "okapi/api/odometry/odometry.hpp"

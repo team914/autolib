@@ -29,6 +29,12 @@
 #define CROSSPLATFORM_MUTEX_T pros::Mutex
 #endif
 
+#define NOT_INITIALIZE_TASK                                                                        \
+  (strcmp(pros::c::task_get_name(pros::c::task_get_current()), "User Initialization (PROS)") != 0)
+
+#define NOT_COMP_INITIALIZE_TASK                                                                   \
+  (strcmp(pros::c::task_get_name(pros::c::task_get_current()), "User Comp. Init. (PROS)") != 0)
+
 class CrossplatformThread {
   public:
 #ifdef THREADS_STD
