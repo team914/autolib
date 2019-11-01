@@ -1,8 +1,10 @@
 #include "main.h"
-
 #include "autolib/api.hpp"
+#include "autolib/util/display.hpp"
 
 using namespace autolib;
+
+std::shared_ptr<Robot> robot;
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -10,7 +12,9 @@ using namespace autolib;
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-void initialize() {}
+void initialize() {
+    
+}
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
@@ -57,27 +61,7 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	PathGenerator pathGenerator( {1.0, 2.0, 4.0} );
-  pathGenerator.generatePath(
-    {
-		Pose{ 1_ft, 1_ft, 270_deg },
-		Pose{ 1_ft, 0_ft, 90_deg }
-	  },
-    std::string("test")
-  );
-
-  PurePursuit purePursuit( pathGenerator.getPaths(), 1_ft );
-
-  //  pros::Task printSensorValsTask(printSensorVals);
-
-  //  drive->moveDistance(6_in);
-  //  drive->turnAngle(90_deg);
-  //  drive->moveDistance(6_in);
-
-  while (true) {
-    purePursuit.run( Pose{ 0_ft, 0_ft, 0_deg }, std::string("test"));
-
-    pros::delay(50);
-  }
-
+	while(true){
+		pros::delay(20);
+	}
 }

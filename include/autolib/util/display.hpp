@@ -1,7 +1,6 @@
 #pragma once
 #include "display/lvgl.h"
 
-
 extern lv_color_t RED;
 extern lv_color_t LIGHT_RED;
 extern lv_color_t DARK_RED;
