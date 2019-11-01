@@ -15,7 +15,7 @@
 #pragma once
 
 #include "autolib/util/messages.hpp"
-#include "autolib/auto/pathGenerator.hpp"
+#include "autolib/path/pathGenerator.hpp"
 #include "okapi/api.hpp"
 #include <cmath>
 #include <memory>

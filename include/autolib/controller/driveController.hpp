@@ -11,7 +11,7 @@ using namespace okapi;
 class DriveController{
     public:
 
-    DriveController( const std::shared_ptr<OdomChassisController> &iodom, const std::shared_ptr<ThreeEncoderSkidSteerModel> &imodel );
+    DriveController( const std::shared_ptr<ChassisController> &ichassis, const std::shared_ptr<ChassisModel> &imodel );
 
     void drive( double left, double right, double scale = 1, double diff = 1 );
 
@@ -21,8 +21,8 @@ class DriveController{
 
     double getRightVelocity();
 
-    std::shared_ptr<OdomChassisController> getChassis();
-    std::shared_ptr<ThreeEncoderSkidSteerModel> getModel();
+    std::shared_ptr<ChassisController> getChassis();
+    std::shared_ptr<ChassisModel> getModel();
 
     void lock();
     void unlock();
@@ -31,15 +31,8 @@ class DriveController{
     double left = 0;
     double right = 0;
 
-    std::vector<double> leftVelocity;
-    std::vector<double> leftAccel;
-    std::vector<double> leftJerk;
-
-    Timer leftAccelTimer;
-    Timer leftJerkTimer;
-
-    std::shared_ptr<OdomChassisController> chassis {nullptr};
-    std::shared_ptr<ThreeEncoderSkidSteerModel> model {nullptr};
+    std::shared_ptr<ChassisController> chassis {nullptr};
+    std::shared_ptr<ChassisModel> model {nullptr};
 
     void run();
     bool isRun = true;

@@ -17,18 +17,6 @@ double Controller::getVelocity(){
     return ivelocity;
 }
 
-void Controller::setBrakeMode( AbstractMotor::brakeMode ibrake ){
-    isRun = false;
-    motor.setBrakeMode( ibrake );
-    isRun = true;
-}
-
-void Controller::setGearing( AbstractMotor::gearset igearset ){
-    isRun = false;
-    motor.setGearing( igearset );
-    isRun = true;
-}
-
 void Controller::run(){
     while(true){
         if( isRun ){

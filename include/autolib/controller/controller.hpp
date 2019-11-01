@@ -1,8 +1,10 @@
 #pragma once
 
-#include "main.h"
+#include "okapi/api.hpp"
 
 namespace autolib{
+
+using namespace okapi;
 
 class Controller{
     public:
