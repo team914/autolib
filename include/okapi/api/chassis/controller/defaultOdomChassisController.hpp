@@ -128,11 +128,6 @@ class DefaultOdomChassisController : public OdomChassisController {
   /**
    * This delegates to the input ChassisController.
    */
-  bool isSettled() override;
-
-  /**
-   * This delegates to the input ChassisController.
-   */
   void waitUntilSettled() override;
 
   /**

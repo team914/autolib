@@ -1,7 +1,7 @@
 /*
  * @author D Michael Jones, 914M - acetousk
- *
- * The ideas portrayed in this code are mainly from the following
+ * 
+ * The ideas portrayed in this code are mainly from the following 
  * documents:
  *      Pure Pursuit            : https://github.com/team914/autolib-pdfs/blob/master/pure-pursuit.pdf
  *      Adaptive Pure Pursuit   : https://github.com/team914/autolib-pdfs/blob/master/adaptive-pure-pursuit.pdf
@@ -49,20 +49,6 @@ void PurePursuit::updateChassis( const double &reqVelocity, const PurePursuitTri
     controller->getModel()->right( right );
 }
 
-double PurePursuit::findDistanceBetweenStateAndPose(const okapi::OdomState &state, const InternalPose &pose2){
-    InternalPose pose1{ state.x.convert(meter), state.y.convert(meter), state.theta.convert(radian) };
-    return findDistanceBetweenPoses( pose1, pose2 );
-}
-
-InternalPose PurePursuit::getLastPoseInPath( const std::string &id ){
-    for( const auto &ipath: paths ){
-        if( ipath.id == id ){
-            return ipath.path.at(ipath.path.size() - 1).pose;
-        }
-    }
-    return InternalPose{};
-}
-
 void PurePursuit::findPath( const std::string &iid ){
     for( const auto &ipath: paths ){
         if( ipath.id == iid ){
@@ -90,11 +76,11 @@ void PurePursuit::findNearestPose( const Pose &iipose ){
     if( nearestPoses.path.empty() ){
         nearestPoses.id = std::string("nearestPoses");
         maxDistance = findDistanceBetweenPoses( path.path.front().pose, path.path.back().pose );
-        nearestPoses.path.emplace_back( InternalDistancePoseIndexed{ path.path.front().pose, 0,
+        nearestPoses.path.emplace_back( InternalDistancePoseIndexed{ path.path.front().pose, 0, 
                 findDistanceBetweenPoses( path.path.front().pose, ipose ) } );
     }else
         maxDistance = lookaheadDistance * 2;
-
+    
     double distance = findDistanceBetweenPoses( nearestPoses.path.back().pose, ipose );
     double lastNearestPoseDistance = 0;
 

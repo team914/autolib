@@ -4,7 +4,7 @@
  * Contains common definitions and header files used throughout your PROS
  * project.
  *
- * Copyright (c) 2017-2018, Purdue University ACM SIGBots.
+ * Copyright (c) 2017-2019, Purdue University ACM SIGBots.
  * All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -39,8 +39,7 @@
 /**
  * You should add more #includes here
  */
-#include "okapi/api.hpp"
-//#include "autolib/main.hpp"
+//#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 
 /**
@@ -53,7 +52,7 @@
  */
 // using namespace pros;
 // using namespace pros::literals;
-using namespace okapi;
+// using namespace okapi;
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure

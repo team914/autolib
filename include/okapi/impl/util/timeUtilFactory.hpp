@@ -12,23 +12,16 @@
 namespace okapi {
 class TimeUtilFactory {
   public:
-  virtual ~TimeUtilFactory() = default;
-
   /**
    * Creates a default TimeUtil.
    */
-  virtual TimeUtil create();
-
-  /**
-   * Creates a default TimeUtil.
-   */
-  static TimeUtil createDefault();
+  static TimeUtil create();
 
   /**
    * Creates a TimeUtil with custom SettledUtil params. See SettledUtil docs.
    */
   static TimeUtil withSettledUtilParams(double iatTargetError = 50,
                                         double iatTargetDerivative = 5,
-                                        const QTime &iatTargetTime = 250_ms);
+                                        QTime iatTargetTime = 250_ms);
 };
 } // namespace okapi

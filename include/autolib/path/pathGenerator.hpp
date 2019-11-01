@@ -24,6 +24,8 @@
 #include <vector>
 #include <cmath>
 
+using namespace okapi;
+
 namespace autolib{
 
 class PathGenerator{
@@ -77,6 +79,5 @@ class PathGenerator{
     std::vector<IndexedDistancePosePath> paths;
     std::shared_ptr<okapi::Logger> logger;
     okapi::PathfinderLimits limits;
-    std::vector<Point> waypoints;
 };
 }//autolib
