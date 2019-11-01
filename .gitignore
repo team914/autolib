@@ -14,3 +14,7 @@ temp.log
 temp.errors
 *.ini
 .d/
+
+#Gitmoji
+node_modules/
+
