@@ -14,5 +14,4 @@ std::shared_ptr<Controller> Robot::makeController(
     return std::make_shared<Controller>( motors, id );
 }
 
-
 }
