@@ -28,6 +28,10 @@ class Robot{
         MotorGroup motors,
         const char * id);
 
+    static std::shared_ptr<DriveController> makeDrive(
+
+    );
+
 };
 
 }//autolib

@@ -13,7 +13,20 @@ std::shared_ptr<Robot> robot;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    
+	//initialize robot class
+	robot = std::make_shared<Robot>();
+
+	//initialize intake controller
+	robot->intake = Robot::makeController( 
+		MotorGroup( { -1, 2 } ),
+		"intake"
+	);
+
+	//initialize tray controller
+	robot->other = Robot::makeController(
+		MotorGroup( { -3, 4 } ),
+		"tray"
+	);
 }
 
 /**
@@ -45,7 +58,9 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -62,6 +77,7 @@ void autonomous() {}
  */
 void opcontrol() {
 	while(true){
+
 		pros::delay(20);
 	}
 }
