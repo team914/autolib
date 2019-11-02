@@ -40,6 +40,16 @@ class DriveController{
     std::shared_ptr<ChassisController> getChassis();
     
     /**
+     * This will return the ChassisController.
+     * 
+     * Warning: You need to unlock() DriveController to continue using it
+     * after calling this method!
+     * 
+     * @return {std::shared_ptr<ChassisController>}  : 
+     */
+    std::shared_ptr<OdomChassisController> getOdom();
+
+    /**
      * This will return the ChassisModel.
      * 
      * Warning: You need to unlock() DriveController to continue using it
@@ -66,8 +76,9 @@ class DriveController{
     double setRightVelocity = 0;
 
     bool isOdom { false };
-    std::shared_ptr<ChassisController> chassis {nullptr};
     std::shared_ptr<ChassisModel> model {nullptr};
+    std::shared_ptr<ChassisController> chassis {nullptr};
+    std::shared_ptr<OdomChassisController> odom {nullptr};
 
     void run();
     bool isRun = true;
