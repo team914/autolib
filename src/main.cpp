@@ -16,17 +16,6 @@ void initialize() {
 	//initialize robot class
 	robot = std::make_shared<Robot>();
 
-	//initialize intake controller
-	robot->intake = Robot::makeController( 
-		MotorGroup( { -1, 2 } ),
-		"intake"
-	);
-
-	//initialize tray controller
-	robot->other = Robot::makeController(
-		MotorGroup( { -3, 4 } ),
-		"tray"
-	);
 }
 
 /**
