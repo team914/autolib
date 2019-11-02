@@ -23,15 +23,6 @@ class Robot{
     std::shared_ptr<Controller> lift {nullptr};
     std::shared_ptr<Controller> other {nullptr};
     std::shared_ptr<Controller> other2 {nullptr};
-
-    static std::shared_ptr<Controller> makeController(
-        MotorGroup motors,
-        const char * id);
-
-    static std::shared_ptr<DriveController> makeDrive(
-
-    );
-
 };
 
 }//autolib
