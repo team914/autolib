@@ -13,4 +13,11 @@ compile_commands.json
 temp.log
 temp.errors
 *.ini
+<<<<<<< HEAD
 .d/
+=======
+.d/
+
+#Gitmoji
+node_modules/
+>>>>>>> 0bf49adac01d0f991728d81dc06978e819ed2b0b
