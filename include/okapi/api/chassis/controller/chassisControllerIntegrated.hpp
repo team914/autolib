@@ -57,12 +57,12 @@ class ChassisControllerIntegrated : public ChassisController {
    *
    * ```cpp
    * // Drive forward by spinning the motors 400 degrees
-   * chassis->moveDistance(400);
+   * chassis->moveRaw(400);
    * ```
    *
    * @param itarget distance to travel in motor degrees
    */
-  void moveDistance(double itarget) override;
+  void moveRaw(double itarget) override;
 
   /**
    * Sets the target distance for the robot to drive straight (using closed-loop control).
@@ -76,7 +76,7 @@ class ChassisControllerIntegrated : public ChassisController {
    *
    * @param itarget distance to travel in motor degrees
    */
-  void moveDistanceAsync(double itarget) override;
+  void moveRawAsync(double itarget) override;
 
   /**
    * Turns the robot clockwise in place (using closed-loop control).
@@ -95,12 +95,12 @@ class ChassisControllerIntegrated : public ChassisController {
    *
    * ```cpp
    * // Turn clockwise by spinning the motors 200 degrees
-   * chassis->turnAngle(200);
+   * chassis->turnRaw(200);
    * ```
    *
    * @param idegTarget angle to turn for in motor degrees
    */
-  void turnAngle(double idegTarget) override;
+  void turnRaw(double idegTarget) override;
 
   /**
    * Sets the target angle for the robot to turn clockwise in place (using closed-loop control).
@@ -114,7 +114,7 @@ class ChassisControllerIntegrated : public ChassisController {
    *
    * @param idegTarget angle to turn for in motor degrees
    */
-  void turnAngleAsync(double idegTarget) override;
+  void turnRawAsync(double idegTarget) override;
 
   /**
    * Sets whether turns should be mirrored.
@@ -122,6 +122,13 @@ class ChassisControllerIntegrated : public ChassisController {
    * @param ishouldMirror whether turns should be mirrored
    */
   void setTurnsMirrored(bool ishouldMirror) override;
+
+  /**
+   * Checks whether the internal controllers are currently settled.
+   *
+   * @return Whether this ChassisController is settled.
+   */
+  bool isSettled() override;
 
   /**
    * Delays until the currently executing movement completes.

@@ -88,7 +88,7 @@ class DefaultOdomChassisController : public OdomChassisController {
   /**
    * This delegates to the input ChassisController.
    */
-  void moveDistance(double itarget) override;
+  void moveRaw(double itarget) override;
 
   /**
    * This delegates to the input ChassisController.
@@ -98,7 +98,7 @@ class DefaultOdomChassisController : public OdomChassisController {
   /**
    * This delegates to the input ChassisController.
    */
-  void moveDistanceAsync(double itarget) override;
+  void moveRawAsync(double itarget) override;
 
   /**
    * This delegates to the input ChassisController.
@@ -108,7 +108,7 @@ class DefaultOdomChassisController : public OdomChassisController {
   /**
    * This delegates to the input ChassisController.
    */
-  void turnAngle(double idegTarget) override;
+  void turnRaw(double idegTarget) override;
 
   /**
    * This delegates to the input ChassisController.
@@ -118,12 +118,17 @@ class DefaultOdomChassisController : public OdomChassisController {
   /**
    * This delegates to the input ChassisController.
    */
-  void turnAngleAsync(double idegTarget) override;
+  void turnRawAsync(double idegTarget) override;
 
   /**
    * This delegates to the input ChassisController.
    */
   void setTurnsMirrored(bool ishouldMirror) override;
+
+  /**
+   * This delegates to the input ChassisController.
+   */
+  bool isSettled() override;
 
   /**
    * This delegates to the input ChassisController.

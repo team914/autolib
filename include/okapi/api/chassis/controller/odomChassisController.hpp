@@ -12,7 +12,13 @@
 #include "okapi/api/coreProsAPI.hpp"
 #include "okapi/api/odometry/odometry.hpp"
 #include "okapi/api/odometry/point.hpp"
+#include "okapi/api/units/QSpeed.hpp"
+#include "okapi/api/util/abstractRate.hpp"
+#include "okapi/api/util/logging.hpp"
 #include "okapi/api/util/timeUtil.hpp"
+#include <atomic>
+#include <memory>
+#include <valarray>
 
 namespace okapi {
 class OdomChassisController : public ChassisController {
@@ -33,11 +39,12 @@ class OdomChassisController : public ChassisController {
    * @param imoveThreshold minimum length movement (smaller movements will be skipped)
    * @param iturnThreshold minimum angle turn (smaller turns will be skipped)
    */
-  OdomChassisController(const TimeUtil &itimeUtil,
+  OdomChassisController(TimeUtil itimeUtil,
                         std::unique_ptr<Odometry> iodometry,
                         const StateMode &imode = StateMode::FRAME_TRANSFORMATION,
                         const QLength &imoveThreshold = 0_mm,
-                        const QAngle &iturnThreshold = 0_deg);
+                        const QAngle &iturnThreshold = 0_deg,
+                        std::shared_ptr<Logger> ilogger = Logger::getDefaultLogger());
 
   ~OdomChassisController() override;
 
@@ -128,6 +135,7 @@ class OdomChassisController : public ChassisController {
   CrossplatformThread *getOdomThread() const;
 
   protected:
+  std::shared_ptr<Logger> logger;
   TimeUtil timeUtil;
   QLength moveThreshold;
   QAngle turnThreshold;

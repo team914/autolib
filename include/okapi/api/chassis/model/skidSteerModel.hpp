@@ -18,10 +18,10 @@ class SkidSteerModel : public ChassisModel {
    * Model for a skid steer drive (wheels parallel with robot's direction of motion). When all
    * motors are powered +100%, the robot should move forward in a straight line.
    *
-   * @param ileftSideMotor left side motor
-   * @param irightSideMotor right side motor
-   * @param ileftEnc  left side encoder
-   * @param irightEnc right side encoder
+   * @param ileftSideMotor The left side motor.
+   * @param irightSideMotor The right side motor.
+   * @param ileftEnc The left side encoder.
+   * @param irightEnc The right side encoder.
    */
   SkidSteerModel(std::shared_ptr<AbstractMotor> ileftSideMotor,
                  std::shared_ptr<AbstractMotor> irightSideMotor,
@@ -92,14 +92,14 @@ class SkidSteerModel : public ChassisModel {
   /**
    * Power the left side motors. Uses velocity mode.
    *
-   * @param ispeed motor power
+   * @param ispeed The motor power.
    */
   void left(double ispeed) override;
 
   /**
    * Power the right side motors. Uses velocity mode.
    *
-   * @param ispeed motor power
+   * @param ispeed The motor power.
    */
   void right(double ispeed) override;
 
